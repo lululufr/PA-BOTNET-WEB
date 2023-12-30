@@ -190,13 +190,6 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="addnetwork">
-          <i class="bi bi-patch-plus"></i>
-          <span>Nouveau réseau</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link" href="network">
           <i class="bi bi-patch-check"></i>
           <span>Réseaux infectés</span>
