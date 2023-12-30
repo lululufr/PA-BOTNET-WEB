@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Network extends Model
 {
     use HasFactory;
+
+    protected $table = 'groupe';
+    use HasFactory;
+    protected $fillable = ['nom', 'image'];
 }

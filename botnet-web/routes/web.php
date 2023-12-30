@@ -30,7 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', [\App\Http\Controllers\HomeController::class, 'index']);
     Route::get('users', [\App\Http\Controllers\UsersController::class, 'index']);
     Route::get('stats', [\App\Http\Controllers\StatsController::class, 'index']);
-    Route::get('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'index']);
-    Route::post('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'addnetwork']);
-    Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index']);
+    Route::post('network', [\App\Http\Controllers\NetworkController::class, 'create']);
+    Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index'])->name('network');
+    Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
+    Route::delete('network/{id}', [NetworkController::class, 'destroy'])->name('network.destroy');
+
 });

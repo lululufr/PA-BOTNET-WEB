@@ -1,5 +1,8 @@
-@include('partials/header')
-<main id="main" class="main">
+@extends("layouts.layout")
+
+@section("title", "Utilisateurs")
+
+@section("content")
 
     <section class="section">
       <div class="row">
@@ -18,7 +21,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Inscription</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Mis à jour</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -29,7 +32,7 @@
                         <td>{{ $user->nom }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at }}</td>
-                        <td>Supprimer</td>
+                        <td>{{ $user->updated_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -37,6 +40,4 @@
               <!-- End Default Table Example -->
             </div>
           </div>
-
-  </main><!-- End #main -->
-@include('partials/footer')
+@endsection
