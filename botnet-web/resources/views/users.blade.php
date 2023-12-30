@@ -1,5 +1,8 @@
-@include('partials/header')
-<main id="main" class="main">
+@extends("layouts.layout")
+
+@section("title", "Accueil")
+
+@section("content")
 
     <section class="section">
       <div class="row">
@@ -37,6 +40,4 @@
               <!-- End Default Table Example -->
             </div>
           </div>
-
-  </main><!-- End #main -->
-@include('partials/footer')
+@endsection

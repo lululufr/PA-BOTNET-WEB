@@ -1,6 +1,9 @@
-@include('partials/header')
-  <main id="main" class="main">
+@extends("layouts.layout")
 
+@section("title", "Accueil")
+
+@section("content")
+    
     <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
@@ -644,6 +647,4 @@
 
       </div>
     </section>
-
-  </main><!-- End #main -->
-@include('partials/footer')
+@endsection

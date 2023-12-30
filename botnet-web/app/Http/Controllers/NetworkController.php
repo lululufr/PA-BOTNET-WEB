@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Network;
 
+
 class NetworkController extends Controller
 {
     /**
@@ -14,7 +15,11 @@ class NetworkController extends Controller
     {
         $username = auth()->user()->prenom;
         $name = auth()->user()->nom;
-        return view('network', ['username' => $username, 'name' => $name]);
+
+
+        // Récupérer tous les groupes depuis la base de données
+        $groupes = Network::all();
+        return view('network', ['username' => $username, 'name' => $name, 'groupes' => $groupes]);
     }
 
     /**
@@ -53,9 +58,13 @@ class NetworkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $username = auth()->user()->prenom;
+        $name = auth()->user()->nom;
+
+        $groupe = Network::findOrFail($id);
+        return view('network.show', ['groupe' => $groupe, 'username' => $username, 'name' => $name,]);
     }
 
     /**

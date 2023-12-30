@@ -1,6 +1,8 @@
-@include('partials/header')
+@extends("layouts.layout")
 
-<main id="main" class="main">
+@section("title", "Accueil")
+
+@section("content")
 
     <section class="section">
         <div class="row">
@@ -48,21 +50,25 @@
             </div>
         </div>
     </section>
-    
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="assets/img/card.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Card with an image on left</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
+  
+  @foreach ($groupes as $groupe)
+  <a href="{{ route('network.show', ['id' => $groupe->id]) }}" class="card-link">
+      <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ ('images/' . $groupe->image) }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">{{ strtoupper($groupe->nom) }}</h1>
+                    <p class="card-text">Créé le {{ $groupe->created_at }}</p>
+                    <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $groupe->updated_at }}</small></p>
+                </div>
+            </div>
         </div>
       </div>
-    </div>
+    </a>
+  @endforeach
 
-</main><!-- End #main -->
 
-@include('partials/footer')
+@endsection

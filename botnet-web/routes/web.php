@@ -32,5 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stats', [\App\Http\Controllers\StatsController::class, 'index']);
     Route::post('network', [\App\Http\Controllers\NetworkController::class, 'create']);
     Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index'])->name('network');
+    Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
 
 });
