@@ -25,20 +25,12 @@ Route::get('register', [\App\Http\Controllers\RegisterController::class, 'index'
 #Route pour enregistrer les données du formulaire d'inscription
 Route::post('register', [\App\Http\Controllers\RegisterController::class, 'register']);
 
-#Route pour afficher la page d'accueil
-Route::get('home', [\App\Http\Controllers\HomeController::class, 'index']);
-
-#Route pour afficher la page des utilisateurs
-Route::get('users', [\App\Http\Controllers\UsersController::class, 'index']);
-
-#Route pour afficher la page des stats
-Route::get('stats', [\App\Http\Controllers\StatsController::class, 'index']);
-
-#Route pour afficher la page d'ajout d'un réseau
-Route::get('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'index']);
-
-#Route pour ajouter un nouveau réseau
-Route::post('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'addnetwork']);
-
-#Route pour afficher la de tous les réseaux
-Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index']);
+// Middleware 'auth' ajouté pour protéger les routes nécessitant une authentification
+Route::middleware(['auth'])->group(function () {
+    Route::get('home', [\App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('users', [\App\Http\Controllers\UsersController::class, 'index']);
+    Route::get('stats', [\App\Http\Controllers\StatsController::class, 'index']);
+    Route::get('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'index']);
+    Route::post('addnetwork', [\App\Http\Controllers\AddNetworkController::class, 'addnetwork']);
+    Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index']);
+});

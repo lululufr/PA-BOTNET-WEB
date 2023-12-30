@@ -183,30 +183,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link 1" href="index.php">
+        <a class="nav-link" href="home">
           <i class="bi bi-grid"></i>
           <span>Accueil</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Réseaux</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="addnetwork">
+          <i class="bi bi-patch-plus"></i>
+          <span>Nouveau réseau</span>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="addnetwork">
-              <span>Nouveau réseau</span>
-            </a>
-          </li>
+      </li>
 
-          <li>
-            <a href="network">
-              <span>Réseaux victimes</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+      <li class="nav-item">
+        <a class="nav-link" href="network">
+          <i class="bi bi-patch-check"></i>
+          <span>Réseaux infectés</span>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link " href="users">

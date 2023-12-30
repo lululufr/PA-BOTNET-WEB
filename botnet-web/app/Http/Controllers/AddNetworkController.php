@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AddNetwork;
 
 class AddNetworkController extends Controller
 {
@@ -18,13 +19,19 @@ class AddNetworkController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $imageName = time() . '.' . $request->image->extension();
 
-        $request->image->move(public_path('images'), $imageName);
+        try {
+            $request->image->move(public_path('app/public/images'), $imageName);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erreur lors de l\'ajout de l\'image.');
+        }
+        
+        return redirect()->route('network')
+            ->with('success', 'Réseau crée avec suucès.');
 
-        return view('network');
     }
 }
