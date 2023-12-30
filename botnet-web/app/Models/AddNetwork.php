@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AddNetwork extends Model
 {
+    protected $table = 'groupe';
     use HasFactory;
-    protected $fillable = ['nom', 'image'];
+    protected $fillable = ['name', 'image'];
 }

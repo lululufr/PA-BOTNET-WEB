@@ -17,21 +17,25 @@ class AddNetworkController extends Controller
     public function addnetwork(Request $request)
     {
 
+        // Validation des données
         $request->validate([
             'name' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // Traitement de l'image
         $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName); 
 
-        try {
-            $request->image->move(public_path('app/public/images'), $imageName);
-        } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors de l\'ajout de l\'image.');
-        }
+        // Création de l'instance et enregistrement dans la base de données
+        $network = new AddNetwork();
+        $network->name = $request->name;
+        $network->image = $imageName;
+        $network->save();
+
         
-        return redirect()->route('network')
-            ->with('success', 'Réseau crée avec suucès.');
+        return redirect()->route('network')->with('success', 'Réseau créé avec succès.');
+
 
     }
 }

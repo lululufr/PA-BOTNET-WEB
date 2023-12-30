@@ -15,7 +15,7 @@
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label">Nom</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nom" required>
+                                    <input type="text" class="form-control" name="name" required>
                                     <div class="invalid-feedback">Merci d'ajouter un nom pour le réseau.</div>
                                 </div>
                             </div>
@@ -32,7 +32,15 @@
                                 </div>
                             </div>
                         </form><!-- End General Form Elements -->
-
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
