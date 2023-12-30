@@ -1,4 +1,4 @@
-@include('partials/header')
+@include('partials/headerhome')
   <main>
     <div class="container">
 
@@ -22,7 +22,7 @@
                     <p class="text-center small">Renseignez vos informations personnelles</p>
                   </div>
 
-                  <form action="/login" method="post" class="row g-3 needs-validation" novalidate>
+                  <form action="/register" method="post" class="row g-3 needs-validation" novalidate>
                     @csrf
                     <div class="col-12">
                       <label for="Nom" class="form-label">Nom</label>
@@ -67,4 +67,4 @@
 
     </div>
   </main><!-- End #main -->
-@include('partials/footer')
+@include('partials/footerhome')

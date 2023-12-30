@@ -13,7 +13,7 @@ class RegisterController extends Controller
         return view('register');
     }
 
-    public function login(Request $request)
+    public function register(Request $request)
     {
         $formFields = $request->validate([
             'nom'=> 'required|min:2',
@@ -22,15 +22,12 @@ class RegisterController extends Controller
             'password'=> 'required|min:6'
         ]);
 
-        //create user
         $user = new User();
         $user->nom = $request->input('nom');
         $user->prenom = $request->input('prenom');
-//
         $user->email = $request->input('email');
         $user->password = bcrypt($formFields['password']);
-//
-        //$user->verify_token = rand(100000,999999);
+
 
         $user->save();
 

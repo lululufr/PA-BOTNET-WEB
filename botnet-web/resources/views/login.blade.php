@@ -1,4 +1,4 @@
-@include('partials/header')
+@include('partials/headerhome')
 <main>
   <div class="container">
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -15,12 +15,13 @@
                 <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Connexion</h5>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form action="/" method="post" class="row g-3 needs-validation" novalidate>
+                  @csrf
                   <div class="col-12">
                     <label for="yourUsername" class="form-label">Nom d'utilisateur</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="text" name="username" class="form-control" id="yourUsername" required>
+                      <input type="text" name="email" class="form-control" id="email" required>
                       <div class="invalid-feedback">Merci de renseigner votre nom d'utilisateur</div>
                     </div>
                   </div>
@@ -50,4 +51,4 @@
     </section>
   </div>
 </main><!-- End #main -->
-@include('partials/footer')
+@include('partials/footerhome')
