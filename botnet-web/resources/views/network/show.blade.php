@@ -34,6 +34,15 @@
                             <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
                                 <p class="card-text">Créé le {{ $groupe->created_at }}</p>
                                 <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $groupe->updated_at }}</small></p>
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <form action="{{ route('network.destroy', $groupe->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" type="submit">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div><!-- End Bordered Tabs Justified -->
                 </div>

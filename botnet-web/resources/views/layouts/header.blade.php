@@ -198,13 +198,11 @@
                 <span>Utilisateurs</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link " href="{{ url('stats') }}">
-                <i class="bi bi-journal-text"></i>
-                <span>Statistiques</span>
-            </a>
-        </li>
     </ul>
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
+<div class="pagetitle">
+  <h1>@yield("title")</h1>
+</div><!-- End Page Title -->

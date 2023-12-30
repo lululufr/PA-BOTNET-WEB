@@ -88,6 +88,17 @@ class NetworkController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Trouver le réseau par son ID
+        $network = Network::findOrFail($id);
+
+        // Supprimer l'image associée (si elle existe)
+        if (file_exists(public_path('images/' . $network->image))) {
+            unlink(public_path('images/' . $network->image));
+        }
+       
+        // Supprimer le réseau de la base de données
+        $network->delete();
+       
+        return redirect()->route('network')->with('success', 'Réseau supprimé avec succès.');
     }
 }

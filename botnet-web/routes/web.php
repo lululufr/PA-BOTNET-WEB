@@ -33,5 +33,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('network', [\App\Http\Controllers\NetworkController::class, 'create']);
     Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index'])->name('network');
     Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
+    Route::delete('network/{id}', [NetworkController::class, 'destroy'])->name('network.destroy');
 
 });
