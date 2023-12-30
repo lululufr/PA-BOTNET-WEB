@@ -179,39 +179,32 @@
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link" href="home">
-          <i class="bi bi-grid"></i>
-          <span>Accueil</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="network">
-          <i class="bi bi-patch-check"></i>
-          <span>Réseaux infectés</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link " href="users">
-          <i class="bi bi-people"></i>
-          <span>Utilisateurs</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link " href="stats">
-          <i class="bi bi-journal-text"></i>
-          <span>Statistiques</span>
-        </a>
-      </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('home') }}">
+                <i class="bi bi-grid"></i>
+                <span>Accueil</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('network') }}">
+                <i class="bi bi-patch-check"></i>
+                <span>Réseaux infectés</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ url('users') }}">
+                <i class="bi bi-people"></i>
+                <span>Utilisateurs</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ url('stats') }}">
+                <i class="bi bi-journal-text"></i>
+                <span>Statistiques</span>
+            </a>
+        </li>
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
