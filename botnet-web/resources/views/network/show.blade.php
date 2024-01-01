@@ -63,8 +63,7 @@
                                     <div class="col-12 d-flex justify-content-start">
                                         <form action="{{ route('network.destroy', $groupe->id) }}" method="POST">
                                             @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">Supprimer</button>
+                                            <button name="id" class="btn btn-danger" type="submit">Supprimer</button>
                                         </form>
                                     </div>
                                 </div>
