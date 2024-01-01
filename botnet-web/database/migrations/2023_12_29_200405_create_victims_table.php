@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('victim', function (Blueprint $table) {
+        Schema::create('victims', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nom');
             $table->string('IP_privee');
@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('OS');
             $table->string('version');
             $table->string('MAC');
+            $table->string('groupe')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('victim');
+        Schema::dropIfExists('victims');
     }
 };

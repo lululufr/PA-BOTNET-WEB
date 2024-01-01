@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('groupe', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name');
+            $table->string('nom');
             $table->string('image');
             $table->timestamps();
         });

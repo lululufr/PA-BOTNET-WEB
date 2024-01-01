@@ -26,7 +26,32 @@
                         </ul>
                         <div class="tab-content pt-2" id="borderedTabJustifiedContent">
                             <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
-                            Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+                            <section class="section">
+                                <table class="table">
+                                    <tbody>
+                                        @foreach ($victims as $victim)
+                                            <tr>
+                                                <th scope="row">
+                                                    <?php
+                                                        if ($victim->OS == "Windows") {
+                                                            echo "<i class=\"bx bxl-windows\"></i>";
+                                                        } else if ($victim->OS == "Linux") {
+                                                            echo "<i class=\"bx bxl-tux\"></i>";
+                                                        } else if ($victim->OS == "MacOS") {
+                                                            echo "<i class=\"bx bxl-apple\"></i>";
+                                                        }
+                                                    ?>
+                                                </th>
+                                                <td>{{ $victim->nom }}</td>
+                                                <td>{{ $victim->version }}</td>
+                                                <td>{{ $victim->IP_publique }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary">Connexion</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
                             Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
@@ -38,8 +63,7 @@
                                     <div class="col-12 d-flex justify-content-start">
                                         <form action="{{ route('network.destroy', $groupe->id) }}" method="POST">
                                             @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">Supprimer</button>
+                                            <button name="id" class="btn btn-danger" type="submit">Supprimer</button>
                                         </form>
                                     </div>
                                 </div>
