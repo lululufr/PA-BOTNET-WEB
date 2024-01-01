@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Network;
-
+use App\Models\Victims;
 
 class NetworkController extends Controller
 {
@@ -64,7 +64,10 @@ class NetworkController extends Controller
         $name = auth()->user()->nom;
 
         $groupe = Network::findOrFail($id);
-        return view('network.show', ['groupe' => $groupe, 'username' => $username, 'name' => $name,]);
+
+        $victims = Victims::where('groupe', $id)->get();
+
+        return view('network.show', ['groupe' => $groupe, 'username' => $username, 'name' => $name, 'victims' => $victims]);
     }
 
     /**

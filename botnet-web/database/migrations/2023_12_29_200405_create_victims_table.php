@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('OS');
             $table->string('version');
             $table->string('MAC');
+            $table->string('groupe')->nullable();
             $table->timestamps();
         });
     }

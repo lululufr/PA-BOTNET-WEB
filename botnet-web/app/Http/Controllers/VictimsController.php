@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Victims;
+use App\Models\Network;
 
 class VictimsController extends Controller
 {
@@ -15,10 +16,13 @@ class VictimsController extends Controller
         $username = auth()->user()->prenom;
         $name = auth()->user()->nom;
 
-        // Récupérer toutes les victimes
-        $victims = Victims::all();
+        // Récupérer toutes les victimes qui n'ont pas de groupe
+        $victims = Victims::where('groupe', null)->get();
 
-        return view('victims', ['username' => $username, 'name' => $name, 'victims' => $victims]);
+        // Récupérer tous les groupes
+        $groupes = Network::all();
+
+        return view('victims', ['username' => $username, 'name' => $name, 'victims' => $victims, 'groupes' => $groupes]);
     }
 
     /**
@@ -58,7 +62,18 @@ class VictimsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Récupérer l'id de la victime
+        $victim = Victims::find($id);
+
+        // Récupérer l'id du groupe
+        $groupe = $request->input('groupe');
+
+        // Attribuer le groupe à la victime
+        $victim->groupe = $groupe;
+
+        // Sauvegarder la victime
+        $victim->save();
+
     }
 
     /**
