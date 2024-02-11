@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('victim_id')->constrained();
             $table->string('log');
-            $table->timestamp('created_at')->useCurrent();
+            // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }

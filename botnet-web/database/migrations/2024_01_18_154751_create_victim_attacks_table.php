@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attacks', function (Blueprint $table) {
+        Schema::create('victim_attacks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained('groups');
+            $table->foreignId('victim_id')->constrained('victims');
             $table->string('type');
             $table->string('state');
             $table->string('text')->nullable();
-            $table->timestamp('created_at')->useCurrent();
+            // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }
@@ -27,19 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attacks');
+        Schema::dropIfExists('victim_attacks');
     }
 };
-
-/*
-
-CREATE TABLE ATTACKS{
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    GROUP_ID INT NOT NULL,
-    TYPE VARCHAR(255) NOT NULL,
-    STATE VARCHAR(255) NOT NULL,
-    TEXT VARCHAR(255),
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (GROUP_ID) REFERENCES GROUPS(ID)
-}
-*/

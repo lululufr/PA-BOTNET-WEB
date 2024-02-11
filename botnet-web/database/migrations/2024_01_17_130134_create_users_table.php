@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('role');
-            $table->dateTime('created_at');
+            // $table->dateTime('created_at');
             $table->timestamps();
         });
     }

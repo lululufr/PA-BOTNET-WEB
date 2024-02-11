@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_logs', function (Blueprint $table) {
+        Schema::create('group_attacks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained();
-            $table->string('log');
+            $table->foreignId('group_id')->constrained('groups');
+            $table->string('type');
+            $table->string('state');
+            $table->string('text')->nullable();
             // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
@@ -25,17 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_logs');
+        Schema::dropIfExists('group_attacks');
     }
 };
-
-/*
-
-CREATE TABLE GROUP_LOGS{
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    GROUP_ID INT NOT NULL,
-    LOG VARCHAR(255) NOT NULL,
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (GROUP_ID) REFERENCES GROUPS(ID)
-}
-*/

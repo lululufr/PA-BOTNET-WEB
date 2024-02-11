@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('victim_id')->constrained('victims');
             $table->foreignId('group_id')->constrained('groups');
-            $table->timestamp('created_at')->useCurrent();
+            // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }

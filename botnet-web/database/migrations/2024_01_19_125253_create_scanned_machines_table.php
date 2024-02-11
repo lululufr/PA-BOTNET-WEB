@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('scanned_machines', function (Blueprint $table) {
             $table->id();
-            $table->foreighId('victim_id')->constrained();
+            $table->unsignedBigInteger('attack_id');
+            $table->foreign('attack_id')->references('id')->on('victim_attacks');
             $table->string('type');
             $table->string('version');
             $table->string('ip');
             $table->string('text');
-            $table->timestamp('created_at')->useCurrent();
+            // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }

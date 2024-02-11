@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('pub_key')->nullable();
             $table->boolean('stealth');
             $table->boolean('multi_thread');
-            $table->timestamp('created_at')->useCurrent();
+            // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }
