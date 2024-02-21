@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::get('wdlst/{list}', [\App\Http\Controllers\ApiWordlist::class, 'receive']);
+Route::get('mlw', [\App\Http\Controllers\ApiMlwController::class, 'malwdwn']);
+
+Route::get('test', [\App\Http\Controllers\ApiWordlist::class, 'test']);
+
+    //Route::get('/mlw', [\App\Http\Controllers\RegisterController::class, 'register']);
+
+

