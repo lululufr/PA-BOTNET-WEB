@@ -4,17 +4,26 @@
 
 @section("content")
 
-<div class="row">
-  <form method="POST" action="/botnet-on">
     @csrf
     <div class="card">
           <div class="card-body">
             <h5 class="card-title">Serveur Python</h5>
-            <button type="submit" class="btn btn-success">Allumer</button>
-            <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+
+            @if($botnet_status == False)
+              <form method="POST" action="/botnet-on">
+                <button type="submit" class="btn btn-success">Allumer</button>
+              </form>
+
+            @else($botnet_status == True)
+              <form method="POST" action="/botnet-off">
+                <button type="submit" class="btn btn-danger">Eteindre</button>
+              </form>
+
+            @endif
+
           </div>
         </div>
-  </form>
+
 
   <form method="POST" action="/aide_botnet">
     @csrf
@@ -25,7 +34,6 @@
           </div>
         </div>
   </form>
-</div>
 
 @if(session('output'))
     <div>
@@ -37,7 +45,6 @@
     <div>
         <pre>{{ $botnet_status }}</pre>
     </div>
-
 @endif
 
       <div class="row">

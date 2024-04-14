@@ -51,9 +51,9 @@ class HomeController extends Controller
 
         // Vérifier si le processus est actif
         if ($nombreProcessus > 2) {
-            $status_botnet = "Le processus $nomProcessus est actif.";
+            $status_botnet = true;
         } else {
-            $status_botnet = "Le processus $nomProcessus n'est pas actif.";
+            $status_botnet = false;
         }
 
 
@@ -90,6 +90,14 @@ class HomeController extends Controller
         $pid = $output[0]; // PID du processus lancé
     
         return redirect('/home')->with('output', "Processus démarré avec le PID $pid");
+    }
+
+    public function stop_botnet()
+    {
+        $command = 'killall python3';
+        exec($command, $output, $return);
+        
+        return redirect('/home')->with('output', "Processus arrêté avec le PID");
     }
 
 }
