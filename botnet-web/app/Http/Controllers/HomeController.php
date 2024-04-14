@@ -52,7 +52,7 @@ class HomeController extends Controller
         system('ps -a', $output);
 
         // Convertit le tableau $output en une chaîne de caractères
-        $outputString = var_dump($output)
+        $outputString = var_dump($output);
 
         // Redirige vers la page '/home' avec le résultat de la commande dans la session
         return redirect('/home')->with('output', $outputString);
