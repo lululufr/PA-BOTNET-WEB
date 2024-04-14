@@ -47,7 +47,7 @@ class HomeController extends Controller
     {
 
         // Exécute la commande ipconfig et récupère le résultat dans $output
-        exec('ipconfig', $output, $return);
+        exec('/home/debian/PA-BOTNET-PYSRV/botnet-start.sh', $output, $return);
 
         // Convertit le tableau $output en une chaîne de caractères
         $outputString = implode("\n", $output);
