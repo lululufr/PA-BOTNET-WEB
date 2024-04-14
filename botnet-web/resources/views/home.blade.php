@@ -4,27 +4,28 @@
 
 @section("content")
 
-
-<form method="POST" action="/botnet-on">
-  @csrf
-  <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Serveur Python</h5>
-          <button type="submit" class="btn btn-success">Allumer</button>
-          <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+<div class="row">
+  <form method="POST" action="/botnet-on">
+    @csrf
+    <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Serveur Python</h5>
+            <button type="submit" class="btn btn-success">Allumer</button>
+            <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+          </div>
         </div>
-      </div>
-</form>
+  </form>
 
-<form method="POST" action="/aide_botnet">
-  @csrf
-  <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Options B0tnet</h5>
-          <button type="submit" class="btn btn-primary">Options</button>
+  <form method="POST" action="/aide_botnet">
+    @csrf
+    <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Options B0tnet</h5>
+            <button type="submit" class="btn btn-primary">Options</button>
+          </div>
         </div>
-      </div>
-</form>
+  </form>
+</div>
 
 @if(session('output'))
     <div>
@@ -32,16 +33,12 @@
     </div>
 @endif
 
-@if(session('on'))
+@if(session('botnet_status'))
     <div>
-        <pre>process ALLUME {{ session('on') }}</pre>
+        <pre>process ALLUME {{ session('botnet_status') }}</pre>
     </div>
-@else
-    <div>
-      <pre>process ETEINT {{ session('on') }}</pre>
-    </div>
-@endif
 
+@endif
 
       <div class="row">
 

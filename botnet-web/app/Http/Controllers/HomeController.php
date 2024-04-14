@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+
+
+
+
     public function index()
     {
         $username = auth()->user()->prenom;
@@ -32,13 +36,34 @@ class HomeController extends Controller
         // Récupérer le nombre de groupes créés
         $networkCount = Network::count();
 
+
+        
+        $nomProcessus = "python3";
+
+        // Exécuter la commande pgrep pour rechercher le processus par nom
+        // Utilisation de -c pour compter le nombre de processus correspondants
+        // Utilisation de -f pour rechercher dans toute la ligne de commande
+        $commande = "pgrep -c -f \"$nomProcessus\"";
+        $resultat = exec($commande);
+
+        // Convertir le résultat en nombre entier
+        $nombreProcessus = intval($resultat);
+
+        // Vérifier si le processus est actif
+        if ($nombreProcessus > 0) {
+            $status_botnet = "Le processus $nomProcessus est actif.";
+        } else {
+            $status_botnet = "Le processus $nomProcessus n'est pas actif.";
+        }
+
+
         return view('home', [
             'username' => $username,
             'name' => $name,
             'months' => json_encode($months), // Convertir en format JSON pour le script du graphique
             'userRegistrationCounts' => json_encode($userRegistrationCounts),
             'networkCount' => $networkCount,
-        ]);
+        ])->with('botnet_status', $status_botnet);
     }
 
 
@@ -66,31 +91,5 @@ class HomeController extends Controller
     
         return redirect('/home')->with('output', "Processus démarré avec le PID $pid");
     }
-
-
-
-    public function status_botnet()
-    {
-        $command = 'ps -a';
-        exec($command, $output, $return);
-        $outputString = implode("\n", $output);
-
-        $process= strpos($outputString, 'python3');
-    
-        // Si l'élément est trouvé, renvoie sa position, sinon renvoie false
-        if ($process !== false) {
-            return redirect('/home')->with('on', $output);
-        } else {
-            return redirect('/home')->with('on', $output);
-        }
-    
-        
-    }
-    
-    
-
-
-
-
 
 }
