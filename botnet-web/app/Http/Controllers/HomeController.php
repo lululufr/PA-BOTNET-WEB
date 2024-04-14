@@ -48,12 +48,11 @@ class HomeController extends Controller
 
     
             // Exécute la commande ipconfig et récupère le résultat dans $output
-            exec('whoami', $output, $return);
-        
+            exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --help', $output, $return);
             // Convertit le tableau $output en une chaîne de caractères
             $outputString = implode("\n", $output);
         
-            // Redirige vers la page '/home' avec le résultat de la commande dans la session
+            
             return redirect('/home')->with('output', $outputString);
         
     }
