@@ -80,7 +80,7 @@ class HomeController extends Controller
         if ($process !== false) {
             return redirect('/home')->with('on', $output);
         } else {
-            return redirect('/home');
+            return redirect('/home')->with('on', $output);
         }
     
         

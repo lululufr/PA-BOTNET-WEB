@@ -34,11 +34,11 @@
 
 @if(session('on'))
     <div>
-        <pre>process ALLUME</pre>
+        <pre>process ALLUME {{ session('on') }}</pre>
     </div>
 @else
     <div>
-      <pre>process ETEINT</pre>
+      <pre>process ETEINT {{ session('on') }}</pre>
     </div>
 @endif
 
