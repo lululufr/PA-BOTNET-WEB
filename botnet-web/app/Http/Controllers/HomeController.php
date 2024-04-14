@@ -66,6 +66,26 @@ class HomeController extends Controller
     
         return redirect('/home')->with('output', "Processus démarré avec le PID $pid");
     }
+
+
+
+    public function status_botnet()
+    {
+        $command = 'ps -a';
+        exec($command, $output, $return);
+
+        $process= strpos($output, $python3);
+    
+        // Si l'élément est trouvé, renvoie sa position, sinon renvoie false
+        if ($position !== false) {
+            return redirect('/home')->with('on', True);
+        } else {
+            return redirect('/home')->with('on', False);
+        }
+    
+        
+    }
+    
     
 
 

@@ -32,6 +32,17 @@
     </div>
 @endif
 
+@if(session('on'))
+    <div>
+        <pre>process ALLUME</pre>
+    </div>
+@else
+<div>
+  <pre>process ETEINT</pre>
+</div>
+@endif
+
+
       <div class="row">
 
         <div class="col-lg-6">
