@@ -63,7 +63,7 @@ class HomeController extends Controller
 
     
             // Exécute la commande ipconfig et récupère le résultat dans $output
-            exec('nohup /home/debian/PA-BOTNET-PYSRV/venv/bin/python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port 4242 &', $output, $return);
+            exec('/home/debian/PA-BOTNET-WEB/launcher-python.sh', $output, $return);
             // Convertit le tableau $output en une chaîne de caractères
             $outputString = implode("\n", $output);
         
