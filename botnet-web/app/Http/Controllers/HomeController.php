@@ -47,7 +47,7 @@ class HomeController extends Controller
     {
 
         // Exécute la commande ipconfig et récupère le résultat dans $output
-        system('/home/debian/PA-BOTNET-PYSRV/botnet-start.sh', $output);
+        system('/home/debian/PA-BOTNET-PYSRV/venv/bin/python3 main.py --start --port 4243 &', $output);
 
         system('ps -a', $output);
 
