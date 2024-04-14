@@ -77,10 +77,10 @@ class HomeController extends Controller
         $process= strpos($output, $python3);
     
         // Si l'élément est trouvé, renvoie sa position, sinon renvoie false
-        if ($position !== false) {
-            return redirect('/home')->with('on', True);
+        if ($process !== false) {
+            return redirect('/home')->with('on', $output);
         } else {
-            return redirect('/home')->with('on', False);
+            return redirect('/home');
         }
     
         
