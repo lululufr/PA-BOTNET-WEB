@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('botnet-on', [\App\Http\Controllers\HomeController::class, 'start_botnet']);
 
-    Route::post('botnet-aide', [\App\Http\Controllers\HomeController::class, 'aide_botnet']);
+    Route::post('aide_botnet', [\App\Http\Controllers\HomeController::class, 'aide_botnet']);
 
 
 });

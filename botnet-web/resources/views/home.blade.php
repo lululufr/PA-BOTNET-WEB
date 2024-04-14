@@ -16,13 +16,12 @@
       </div>
 </form>
 
-<form method="POST" action="/botnet-aide">
+<form method="POST" action="/aide_botnet">
   @csrf
   <div class="card">
         <div class="card-body">
-          <h5 class="card-title">AIDE</h5>
-          <button type="submit" class="btn btn-primary">Allumer</button>
-          <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+          <h5 class="card-title">Options B0tnet</h5>
+          <button type="submit" class="btn btn-primary">Options</button>
         </div>
       </div>
 </form>
