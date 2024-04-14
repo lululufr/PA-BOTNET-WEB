@@ -16,17 +16,18 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $formFields = $request->validate([
-            'nom'=> 'required|min:2',
-            'prenom'=> 'required|min:2',
+            'lastname'=> 'required|min:2',
+            'firstname'=> 'required|min:2',
             'email'=> 'required',
             'password'=> 'required|min:6'
         ]);
 
         $user = new User();
-        $user->nom = $request->input('nom');
-        $user->prenom = $request->input('prenom');
+        $user->lastname = $request->input('lastname');
+        $user->firstname = $request->input('firstname');
         $user->email = $request->input('email');
         $user->password = bcrypt($formFields['password']);
+        $user->role = 'user';
 
 
         $user->save();

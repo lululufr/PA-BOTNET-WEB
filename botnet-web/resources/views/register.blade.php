@@ -26,13 +26,13 @@
                     @csrf
                     <div class="col-12">
                       <label for="Nom" class="form-label">Nom</label>
-                      <input type="text" name="nom" class="form-control" id="nom" required>
+                      <input type="text" name="lastname" class="form-control" id="lastname" required>
                       <div class="invalid-feedback">Merci de renseigner votre nom !</div>
                     </div>
 
                     <div class="col-12">
                       <label for="Prenom" class="form-label">Prenom</label>
-                      <input type="text" name="prenom" class="form-control" id="prenom" required>
+                      <input type="text" name="firstname" class="form-control" id="firstname" required>
                       <div class="invalid-feedback">Merci de renseigner votre prenom !</div>
                     </div>
 

@@ -40,4 +40,21 @@ class HomeController extends Controller
             'networkCount' => $networkCount,
         ]);
     }
+
+
+
+    public function start_botnet()
+    {
+
+        // Exécute la commande ipconfig et récupère le résultat dans $output
+        exec('ipconfig', $output, $return);
+
+        // Convertit le tableau $output en une chaîne de caractères
+        $outputString = implode("\n", $output);
+
+        // Redirige vers la page '/home' avec le résultat de la commande dans la session
+        return redirect('/home')->with('output', $outputString);
+    }
+
+
 }

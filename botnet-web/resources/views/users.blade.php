@@ -28,8 +28,8 @@
                     @foreach ($users as $user)
                         <tr>
                         <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->prenom }}</td>
-                        <td>{{ $user->nom }}</td>
+                        <td>{{ $user->firstname }}</td>
+                        <td>{{ $user->lastname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>

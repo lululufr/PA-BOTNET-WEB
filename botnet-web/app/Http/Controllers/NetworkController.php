@@ -13,13 +13,13 @@ class NetworkController extends Controller
      */
     public function index()
     {
-        $username = auth()->user()->prenom;
-        $name = auth()->user()->nom;
+        $username = auth()->user()->firstname;
+        $name = auth()->user()->lastname;
 
 
         // Récupérer tous les groupes depuis la base de données
-        $groupes = Network::all();
-        return view('network', ['username' => $username, 'name' => $name, 'groupes' => $groupes]);
+        $groups = Network::all();
+        return view('network', ['username' => $username, 'name' => $name, 'groups' => $groups]);
     }
 
     /**
@@ -29,7 +29,7 @@ class NetworkController extends Controller
     {
         // Validation des données
         $request->validate([
-            'nom' => 'required',
+            'name' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -39,7 +39,7 @@ class NetworkController extends Controller
 
         // Création de l'instance et enregistrement dans la base de données
         $network = new Network();
-        $network->nom = $request->nom;
+        $network->name = $request->name;
         $network->image = $imageName;
         $network->save();
 
@@ -60,14 +60,23 @@ class NetworkController extends Controller
      */
     public function show($id)
     {
-        $username = auth()->user()->prenom;
-        $name = auth()->user()->nom;
-
-        $groupe = Network::findOrFail($id);
-
-        $victims = Victims::where('groupe', $id)->get();
-
-        return view('network.show', ['groupe' => $groupe, 'username' => $username, 'name' => $name, 'victims' => $victims]);
+        $username = auth()->user()->firstname;
+        $name = auth()->user()->lastname;
+    
+        $group = Network::findOrFail($id);
+    
+        // Modification ici pour utiliser la table intermédiaire
+        $victims = Victims::join('victim_groups', 'victims.id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->select('victims.*') // Sélectionner toutes les colonnes de la table victims
+                            ->get();
+    
+        return view('network.show', [
+            'group' => $group, 
+            'username' => $username, 
+            'name' => $name, 
+            'victims' => $victims
+        ]);
     }
 
     /**

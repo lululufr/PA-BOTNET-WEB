@@ -12,8 +12,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $username = auth()->user()->prenom;
-        $name = auth()->user()->nom;
+        $username = auth()->user()->firstname;
+        $name = auth()->user()->lastname;
 
         // Récupérer tous les utilisateurs
         $users = User::all();

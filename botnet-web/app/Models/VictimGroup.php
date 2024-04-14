@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Network extends Model
+class VictimGroup extends Model
 {
     use HasFactory;
-
-    protected $table = 'groups';
-    use HasFactory;
-    protected $fillable = ['nom', 'image'];
 }

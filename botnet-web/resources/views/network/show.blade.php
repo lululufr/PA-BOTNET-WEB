@@ -7,11 +7,11 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="{{ asset('images/' . $groupe->image) }}" class="img-fluid rounded-start" alt="...">
+                <img src="{{ asset('images/' . $group->image) }}" class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">{{ strtoupper($groupe->nom) }}</h1>
+                    <h1 class="card-title">{{ strtoupper($group->name) }}</h1>
                         <!-- Bordered Tabs Justified -->
                         <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
                             <li class="nav-item flex-fill" role="presentation">
@@ -42,7 +42,7 @@
                                                         }
                                                     ?>
                                                 </th>
-                                                <td>{{ $victim->nom }}</td>
+                                                <td>{{ $victim->name }}</td>
                                                 <td>{{ $victim->version }}</td>
                                                 <td>{{ $victim->IP_publique }}</td>
                                                 <td>
@@ -57,11 +57,11 @@
                             Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
                             </div>
                             <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
-                                <p class="card-text">Créé le {{ $groupe->created_at }}</p>
-                                <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $groupe->updated_at }}</small></p>
+                                <p class="card-text">Créé le {{ $group->created_at }}</p>
+                                <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $group->updated_at }}</small></p>
                                 <div class="row">
                                     <div class="col-12 d-flex justify-content-start">
-                                        <form action="{{ route('network.destroy', $groupe->id) }}" method="POST">
+                                        <form action="{{ route('network.destroy', $group->id) }}" method="POST">
                                             @csrf
                                             <button name="id" class="btn btn-danger" type="submit">Supprimer</button>
                                         </form>

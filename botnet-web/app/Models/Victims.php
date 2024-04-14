@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Victims extends Model
 {
     use HasFactory;
+
+    public function victimGroups()
+    {
+        return $this->hasMany(VictimGroup::class, 'victim_id', 'id');
+    }
+
 }

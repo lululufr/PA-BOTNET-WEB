@@ -3,25 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Victims;
-use App\Models\Network;
 
-class VictimsController extends Controller
+class VictimGroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $username = auth()->user()->firtsname;
-        $name = auth()->user()->lastname;
-    
-        $victims = Victims::doesntHave('victimGroups')->get();
-    
-        // Récupérer tous les groupes
-        $groups = Network::all();
-    
-        return view('victims', ['username' => $username, 'name' => $name, 'victims' => $victims, 'groups' => $groups]);
+        //Vérifier dans la table Victim_groups si la victime appartient déjà à un groupe, et récupérer toutes celles qui n'ont pas de groupe
+        $victims = DB::table('victims')
+            ->leftJoin('victim_groups', 'victims.id', '=', 'victim_groups.victim_id')
+            ->whereNull('victim_groups.victim_id')
+            ->select('victims.*')
+            ->get();
+
     }
 
     /**
@@ -61,18 +57,7 @@ class VictimsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Récupérer l'id de la victime
-        $victim = Victims::find($id);
-
-        // Récupérer l'id du groupe
-        $group = $request->input('group');
-
-        // Attribuer le groupe à la victime
-        $victim->group = $group;
-
-        // Sauvegarder la victime
-        $victim->save();
-
+        //
     }
 
     /**

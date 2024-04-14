@@ -18,7 +18,7 @@
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label">Nom</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nom" required>
+                                    <input type="text" class="form-control" name="name" required>
                                     <div class="invalid-feedback">Merci d'ajouter un nom pour le réseau.</div>
                                 </div>
                             </div>
@@ -51,18 +51,18 @@
         </div>
     </section>
   
-  @foreach ($groupes as $groupe)
-  <a href="{{ route('network.show', ['id' => $groupe->id]) }}" class="card-link">
+  @foreach ($groups as $group)
+  <a href="{{ route('network.show', ['id' => $group->id]) }}" class="card-link">
       <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="{{ ('images/' . $groupe->image) }}" class="img-fluid rounded-start" alt="...">
+                <img src="{{ ('images/' . $group->image) }}" class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">{{ strtoupper($groupe->nom) }}</h1>
-                    <p class="card-text">Créé le {{ $groupe->created_at }}</p>
-                    <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $groupe->updated_at }}</small></p>
+                    <h1 class="card-title">{{ strtoupper($group->name) }}</h1>
+                    <p class="card-text">Créé le {{ $group->created_at }}</p>
+                    <p class="card-text"><small class="text-muted">Dernière mise à jour le {{ $group->updated_at }}</small></p>
                 </div>
             </div>
         </div>

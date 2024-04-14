@@ -3,6 +3,25 @@
 @section("title", "Accueil")
 
 @section("content")
+
+
+<form method="POST" action="/botnet-on">
+  @csrf
+  <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Serveur Python</h5>
+          <button type="submit" class="btn btn-success">Allumer</button>
+          <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+        </div>
+      </div>
+</form>
+
+@if(session('output'))
+    <div>
+        <pre>{{ session('output') }}</pre>
+    </div>
+@endif
+
       <div class="row">
 
         <div class="col-lg-6">
