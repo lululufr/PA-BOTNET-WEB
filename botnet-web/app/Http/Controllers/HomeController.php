@@ -46,16 +46,16 @@ class HomeController extends Controller
     public function start_botnet()
     {
 
-        // Exécute la commande ipconfig et récupère le résultat dans $output
-        //system('/home/debian/PA-BOTNET-PYSRV/venv/bin/python3 main.py --start --port 4243 &', $output);
-
-        system('whoami', $output);
-
-        // Convertit le tableau $output en une chaîne de caractères
-        $outputString = var_dump($output);
-
-        // Redirige vers la page '/home' avec le résultat de la commande dans la session
-        return redirect('/home')->with('output', $outputString);
+    
+            // Exécute la commande ipconfig et récupère le résultat dans $output
+            exec('whoami', $output, $return);
+        
+            // Convertit le tableau $output en une chaîne de caractères
+            $outputString = implode("\n", $output);
+        
+            // Redirige vers la page '/home' avec le résultat de la commande dans la session
+            return redirect('/home')->with('output', $outputString);
+        
     }
 
 
