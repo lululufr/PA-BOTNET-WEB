@@ -33,9 +33,9 @@
     </div>
 @endif
 
-@if(session('botnet_status'))
+@if($botnet_status)
     <div>
-        <pre>process ALLUME {{ session('botnet_status') }}</pre>
+        <pre>{{ $botnet_status }}</pre>
     </div>
 
 @endif

@@ -50,7 +50,7 @@ class HomeController extends Controller
         $nombreProcessus = intval($resultat);
 
         // Vérifier si le processus est actif
-        if ($nombreProcessus > 0) {
+        if ($nombreProcessus > 1) {
             $status_botnet = "Le processus $nomProcessus est actif.";
         } else {
             $status_botnet = "Le processus $nomProcessus n'est pas actif.";
