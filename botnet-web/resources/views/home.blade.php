@@ -4,18 +4,20 @@
 
 @section("content")
 
-    @csrf
+    
     <div class="card">
           <div class="card-body">
             <h5 class="card-title">Serveur Python</h5>
 
             @if($botnet_status == False)
               <form method="POST" action="/botnet-on">
+                @csrf
                 <button type="submit" class="btn btn-success">Allumer</button>
               </form>
 
             @else($botnet_status == True)
               <form method="POST" action="/botnet-off">
+                @csrf
                 <button type="submit" class="btn btn-danger">Eteindre</button>
               </form>
 
