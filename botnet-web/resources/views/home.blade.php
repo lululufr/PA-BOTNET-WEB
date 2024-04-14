@@ -16,6 +16,17 @@
       </div>
 </form>
 
+<form method="POST" action="/botnet-aide">
+  @csrf
+  <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">AIDE</h5>
+          <button type="submit" class="btn btn-primary">Allumer</button>
+          <!--<button type="button" class="btn btn-danger">Eteindre</button>-->
+        </div>
+      </div>
+</form>
+
 @if(session('output'))
     <div>
         <pre>{{ session('output') }}</pre>
