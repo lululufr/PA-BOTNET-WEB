@@ -73,8 +73,9 @@ class HomeController extends Controller
     {
         $command = 'ps -a';
         exec($command, $output, $return);
+        $outputString = implode("\n", $output);
 
-        $process= strpos($output, $python3);
+        $process= strpos($outputString, 'python3');
     
         // Si l'élément est trouvé, renvoie sa position, sinon renvoie false
         if ($process !== false) {
