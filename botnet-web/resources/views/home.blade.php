@@ -5,26 +5,36 @@
 @section("content")
 
     
-    <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Serveur Python</h5>
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Serveur Python</h5>
+        <!-- Affichage des messages d'erreur ou de succès -->
+        @if(session('output'))
+            <div class="alert alert-info">{{ session('output') }}</div>
+        @endif
 
-            @if($botnet_status == False)
-              <form method="POST" action="/botnet-on">
+        @if(!$botnet_status)
+            <form method="POST" action="/botnet-on">
                 @csrf
+                <div class="row mb-3">
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-3 col-form-label">Port d'écoute (1023 - 65535)</label>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" name="port" required min="1023" max="65535">
+                      </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-success">Allumer</button>
-              </form>
-
-            @else($botnet_status == True)
-              <form method="POST" action="/botnet-off">
+            </form>
+        @else 
+            <form method="POST" action="/botnet-off">
                 @csrf
-                <button type="submit" class="btn btn-danger">Eteindre</button>
-              </form>
+                <button type="submit" class="btn btn-danger">Éteindre</button>
+            </form>
+        @endif
+    </div>
+  </div>
 
-            @endif
-
-          </div>
-        </div>
 
 
   <form method="POST" action="/aide_botnet">
