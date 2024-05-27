@@ -35,8 +35,6 @@
     </div>
   </div>
 
-
-
   <form method="POST" action="/aide_botnet">
     @csrf
     <div class="card">

