@@ -93,8 +93,9 @@ class HomeController extends Controller
             return redirect('/home')->with('output', "Port invalide. Choisissez un port entre 1023 et 65535.");
         }
     
-        // Construire la commande avec le port spécifié
-        $command = "python3 /home/debian/PA-BOTNET-PYSRV/venv/bin/python3 main.py --start --port $port > /dev/null 2>&1 & echo $!";
+        // Commande pour activer l'environnement virtuel et démarrer le serveur Python avec le port spécifié
+        $command = "bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port $port > /dev/null 2>&1 & echo $!'";
+    
         exec($command, $output, $return);
     
         // Le PID du processus lancé
