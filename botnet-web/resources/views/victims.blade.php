@@ -17,11 +17,7 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th>Nom</th>
-                    <th>IP privée</th>
                     <th>IP publique</th>
-                    <th>MAC</th>
-                    <th>OS</th>
                     <th>Date d'infection</th>
                     <th>Attribution</th>
                   </tr>
@@ -30,19 +26,15 @@
                     @foreach ($victims as $victim)
                         <tr>
                             <th scope="row">{{ $victim->id }}</th>
-                            <td>{{ $victim->nom }}</td>
-                            <td>{{ $victim->IP_privee }}</td>
-                            <td>{{ $victim->IP_publique }}</td>
-                            <td>{{ $victim->MAC }}</td>
-                            <td>{{ $victim->OS }}</td>
+                            <td>{{ $victim->ip }}</td>
                             <td>{{ $victim->created_at }}</td>
                             <td>
                                 <form action="{{ route('victims.update', $victim->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                         <select class="form-select" name="groupe" id="validationDefault04" required>
-                                            @foreach ($groupes as $groupe)
-                                                <option value="{{ $groupe->id }}">{{ $groupe->nom }}</option>
+                                            @foreach ($groups as $group)
+                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
                                             @endforeach
                                         </select>
                                     <button type="submit" class="btn btn-primary">Attribuer</button>
