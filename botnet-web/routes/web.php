@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
     Route::post('network/{id}', [\App\Http\Controllers\NetworkController::class, 'destroy'])->name('network.destroy');
     Route::post('ddos', [\App\Http\Controllers\NetworkController::class, 'ddos'])->name('network.ddos');
+    Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index']);
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
 
