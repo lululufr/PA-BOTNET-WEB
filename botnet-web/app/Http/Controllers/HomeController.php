@@ -94,7 +94,8 @@ class HomeController extends Controller
         }
     
         // Commande pour activer l'environnement virtuel et démarrer le serveur Python avec le port spécifié
-        $command = "bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port $port > /dev/null 2>&1 & echo $!'";
+        $command = "bash -c 'nohup source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && nohup python3 /home/debian/PA-BOTNET-PYSRV/main.py --start --port $port > /dev/null 2>&1 & echo $!'";
+
     
         exec($command, $output, $return);
     
