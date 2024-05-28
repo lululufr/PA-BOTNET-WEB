@@ -11,6 +11,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Ajout d'un nouveau réseau</h5>
+                        
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
                         <!-- General Form Elements -->
                         <form action="/network" method="post" class="needs-validation" novalidate enctype="multipart/form-data">

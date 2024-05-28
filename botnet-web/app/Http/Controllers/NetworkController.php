@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Network;
 use App\Models\Victims;
+use App\Models\VictimGroup;
 
 class NetworkController extends Controller
 {
@@ -107,6 +108,9 @@ class NetworkController extends Controller
         if (file_exists(public_path('images/' . $network->image))) {
             unlink(public_path('images/' . $network->image));
         }
+
+        //Supprimer toutes les victimes associées à ce réseau
+        VictimGroup::where('group_id', $id)->delete();
        
         // Supprimer le réseau de la base de données
         $network->delete();
