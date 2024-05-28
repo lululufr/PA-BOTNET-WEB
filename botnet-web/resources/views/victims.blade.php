@@ -12,6 +12,12 @@
             <div class="card-body">
               <h5 class="card-title">Postes infectés non attribués</h5>
 
+              @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                  {{ session('success') }}
+                </div>
+              @endif
+
               <!-- Default Table -->
               <table class="table">
                 <thead>
@@ -32,11 +38,11 @@
                                 <form action="{{ route('victims.update', $victim->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                        <select class="form-select" name="groupe" id="validationDefault04" required>
-                                            @foreach ($groups as $group)
-                                                <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                            @endforeach
-                                        </select>
+                                      <select class="form-select" name="group" id="validationDefault04" required>
+                                          @foreach ($groups as $group)
+                                              <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                          @endforeach
+                                      </select>                                  
                                     <button type="submit" class="btn btn-primary">Attribuer</button>
                                 </form>
                             </td>

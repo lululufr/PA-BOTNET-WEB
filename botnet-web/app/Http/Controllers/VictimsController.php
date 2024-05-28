@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Victims;
 use App\Models\Network;
+use App\Models\VictimGroup;
 
 class VictimsController extends Controller
 {
@@ -63,16 +64,17 @@ class VictimsController extends Controller
     {
         // Récupérer l'id de la victime
         $victim = Victims::find($id);
-
+    
         // Récupérer l'id du groupe
-        $group = $request->input('group');
-
-        // Attribuer le groupe à la victime
-        $victim->group = $group;
-
-        // Sauvegarder la victime
-        $victim->save();
-
+        $groupId = $request->input('group'); // Assurez-vous que cela correspond au 'name' dans le <select>
+    
+        // Créer une nouvelle association dans victim_groups
+        $victimGroup = new VictimGroup();
+        $victimGroup->victim_id = $victim->id;
+        $victimGroup->group_id = $groupId;
+        $victimGroup->save();
+    
+        return redirect()->route('victims.index')->with('success', 'Victime ajoutée au groupe avec succès.');
     }
 
     /**
