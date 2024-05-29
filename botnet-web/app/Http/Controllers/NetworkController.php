@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Network;
 use App\Models\Victims;
 use App\Models\VictimGroup;
+use App\Models\GroupAttacks;
 
 class NetworkController extends Controller
 {
@@ -111,6 +112,9 @@ class NetworkController extends Controller
 
         //Supprimer toutes les victimes associées à ce réseau
         VictimGroup::where('group_id', $id)->delete();
+
+        //Supprimer toutes les attaques associées à ce réseau	
+        GroupAttacks::where('group_id', $id)->delete();
        
         // Supprimer le réseau de la base de données
         $network->delete();
