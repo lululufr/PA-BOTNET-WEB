@@ -34,16 +34,16 @@
                                     @foreach ($victims as $victim)
                                     <tr>
                                         <th scope="row">
-                                            @if ($victim->OS == "Windows")
+                                            @if ($victim->os == "windows")
                                             <i class="bx bxl-windows"></i>
-                                            @elseif ($victim->OS == "Linux")
+                                            @elseif ($victim->os == "linux")
                                             <i class="bx bxl-tux"></i>
-                                            @elseif ($victim->OS == "MacOS")
+                                            @elseif ($victim->os == "macos")
                                             <i class="bx bxl-apple"></i>
                                             @endif
                                         </th>
-                                        <td>{{ $victim->id }}</td>
                                         <td>{{ $victim->ip }}</td>
+                                        <td>{{ $victim->uid }}</td>
                                         <form method="POST" action="{{ route('network.scan') }}">
                                             @csrf
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
