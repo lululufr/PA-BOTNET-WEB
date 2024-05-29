@@ -66,6 +66,10 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Supprimer un utilisateur
+        User::destroy($id);
+
+        // Rediriger vers la page des utilisateurs avec un message de succès
+        return redirect('users')->with('success', 'Utilisateur supprimé avec succès');
     }
 }

@@ -11,7 +11,11 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Utilisateurs</h5>
-
+              @if (session('success'))
+                <div class="alert alert-success">
+                  {{ session('success') }}
+                </div>
+              @endif
               <!-- Default Table -->
               <table class="table">
                 <thead>
@@ -22,6 +26,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Inscription</th>
                     <th scope="col">Mis à jour</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,6 +38,12 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
+                        <td>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
                         </tr>
                     @endforeach
                 </tbody>
