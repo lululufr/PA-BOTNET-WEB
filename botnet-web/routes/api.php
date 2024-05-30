@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/rocky/{file}', [\App\Http\Controllers\ApiController::class, 'get_rockyou']);
+Route::get('/foo_shi_shi_bang/', [\App\Http\Controllers\ApiController::class, 'get_virus']);
+
