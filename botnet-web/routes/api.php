@@ -22,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/rocky/{file}', [\App\Http\Controllers\ApiController::class, 'get_rockyou']);
 Route::get('/foo_shi_shi_bang/', [\App\Http\Controllers\ApiController::class, 'get_virus']);
 
+Route::post('/upload/{file}', [\App\Http\Controllers\ApiController::class, 'upload_file']);
+
+
