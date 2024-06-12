@@ -63,7 +63,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Dernières attaques</h5>
-
+                    <?php
+                      var_dump($attacks);
+                    ?>
                     <!-- Table with stripped rows -->
                     <table class="table datatable">
                         <thead>
