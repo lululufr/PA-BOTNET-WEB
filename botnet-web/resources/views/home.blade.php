@@ -57,6 +57,48 @@
     </div>
 @endif
 
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Dernières attaques</h5>
+
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Type</th>
+                                <th>Date de lancement</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($attacks) && count($attacks) > 0)
+                                @foreach($attacks as $attack)
+                                    <tr>
+                                        <td>{{ $attack['id'] }}</td>
+                                        <td>{{ $attack['type'] }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($attack['timestamp'])->format('d/m/Y H:i:s') }}</td>
+                                        <td>{{ $attack['status'] }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="4">Aucune attaque trouvée</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
       <div class="row">
 
         <div class="col-lg-6">
