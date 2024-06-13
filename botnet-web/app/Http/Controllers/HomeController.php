@@ -52,23 +52,30 @@ class HomeController extends Controller
 
         // Exécute la commande --showall --target victim_attacks
         exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
+        //exec('/home/quentin/Documents/Projet_Ann_3ème/vitual_env/bin/python /home/quentin/Documents/Projet_Ann_3ème/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
 
+        // dd($output);
         // Initialiser un tableau pour stocker les attaques
         $attacks = [];
 
-        // Parser chaque ligne de l'output et construire le tableau des attaques
         foreach ($output as $line) {
-            preg_match("/\((\d+), \d+, '(\w+)', '(\w+)', '(\{.*\})', .*, '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'.*\)/", $line, $matches);
+            $line = trim($line);
+
+            preg_match("/\((\d+), \d+, '(\w+)', '(\w+)', '(\{.*?\})', (?:'([^']*)'|None), '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'\)/", $line, $matches);
+
             if ($matches) {
                 $attacks[] = [
                     'id' => $matches[1],
                     'type' => $matches[2],
                     'status' => $matches[3],
-                    'args' => $matches[4],
-                    'timestamp' => $matches[5]
+                    'results' => $matches[5],
+                    'timestamp_start' => $matches[6],
+                    'timestamp_end' => $matches[7]
                 ];
             }
         }
+        // dd($attacks);
+        
 
         return view('home', [
             'username' => $username,
