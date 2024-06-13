@@ -69,8 +69,10 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Type</th>
-                                <th>Date de lancement</th>
                                 <th>Statut</th>
+                                <th>Resultats</th>
+                                <th>Date de lancement</th>
+                                <th>Date de fin exécution</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,8 +81,10 @@
                                     <tr>
                                         <td>{{ $attack['id'] }}</td>
                                         <td>{{ $attack['type'] }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($attack['timestamp'])->format('d/m/Y H:i:s') }}</td>
                                         <td>{{ $attack['status'] }}</td>
+                                        <td>{{ $attack['results']}}</td>
+                                        <td>{{ $attack['timestamp_start'] }}</td>
+                                        <td>{{ $attack['timestamp_end'] }}</td>
                                     </tr>
                                 @endforeach
                             @else
