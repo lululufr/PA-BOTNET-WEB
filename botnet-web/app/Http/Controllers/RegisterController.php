@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect('/')->with('success', 'Votre compte a bien été créé !');
+        return redirect()->back()->with('success', 'Votre compte a bien été créé !');
     }
 
 }
