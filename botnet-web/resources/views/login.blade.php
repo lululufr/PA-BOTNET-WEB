@@ -17,31 +17,28 @@
                 </div>
                 <form action="/" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
-
                     <input type="hidden" name="email" class="form-control" id="email" value="serviceuser@bot.net" required>
-
                   <div class="col-12">
                     <label for="yourPassword" class="form-label">Mot de passe ! </label>
                     <input type="password" name="password" class="form-control" id="yourPassword" required>
                     <div class="invalid-feedback">Merci de renseigner le mot de passe</div>
                   </div>
-                    <!--
+
                   <div class="col-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                      <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
-                    </div>
+                    <button class="btn btn-primary w-100  m-1" type="submit">
+                        Connexion
+                    </button>
+
+                      <button type="button" class="btn btn-secondary w-100 m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          J'ai un compte spécifique
+                      </button>
                   </div>
-                  -->
-                  <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Connexion</button>
-                  </div>
-                    <!--
-                  <div class="col-12">
-                    <p class="small mb-0">Nouvel utilisateur ? <a href="register">Créer votre compte</a></p>
-                  </div>
-                  -->
+
                 </form>
+
+
+
+
               </div>
             </div>
           </div>
@@ -49,5 +46,43 @@
       </div>
     </section>
   </div>
+
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/" method="post" class="row g-3 needs-validation" novalidate>
+                        @csrf
+                        <div class="col-12">
+                            <label for="yourPassword" class="form-label">Email</label>
+                            <input type="text" name="email" class="form-control" id="email" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="yourPassword" class="form-label">Mot de passe ! </label>
+                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                            <div class="invalid-feedback">Merci de renseigner le mot de passe</div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">Connexion</button>
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
 </main><!-- End #main -->
 @include('partials/footerhome')
