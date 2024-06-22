@@ -4,16 +4,41 @@
 
 @section("content")
 
-    
+
   <div class="card">
     <div class="card-body">
         <h5 class="card-title">Serveur Python</h5>
         <!-- Affichage des messages d'erreur ou de succès -->
-        @if(session('output'))
-            <div class="alert alert-info">{{ session('output') }}</div>
-        @endif
 
-        @if(!$botnet_status)
+            @if(is_array(session('output')) && count(session('output')) > 0)
+                <div class="alert alert-info">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Argument</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (session('output') as $flag => $description)
+                                <tr>
+
+                                    <td><strong>{{ $flag }} </strong> </td>
+                                    <td>{{ $description }}</td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+        @elseif(session('output') !== null)
+
+                <div class="alert alert-info">
+                    {{ session('output') }}
+                </div>
+            @endif
+
+        @if(!$botnetRunning)
             <form method="POST" action="/botnet-on">
                 @csrf
                 <div class="row mb-3">
@@ -26,7 +51,7 @@
                 </div>
                 <button type="submit" class="btn btn-success">Allumer</button>
             </form>
-        @else 
+        @else
             <form method="POST" action="/botnet-off">
                 @csrf
                 <button type="submit" class="btn btn-danger">Éteindre</button>
@@ -39,23 +64,15 @@
     @csrf
     <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Options B0tnet</h5>
+
+            <h5 class="card-title">Afficher les options botnet</h5>
             <button type="submit" class="btn btn-primary">Options</button>
+
           </div>
         </div>
   </form>
 
-@if(session('output'))
-    <div>
-        <pre>{{ session('output') }}</pre>
-    </div>
-@endif
 
-@if($botnet_status)
-    <div>
-        <pre>{{ $botnet_status }}</pre>
-    </div>
-@endif
 
 <section class="section">
     <div class="row">
@@ -239,10 +256,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Réseaux infectés</h5>
-                
+
                 <!-- Radial Bar Chart -->
                 <div id="radialBarChart"></div>
-                
+
                 <script>
                     document.addEventListener("DOMContentLoaded", () => {
                         var networkData = {!! $networkCount !!}; // Récupérer le nombre de réseaux infectés depuis le contrôleur
@@ -281,7 +298,7 @@
                     });
                 </script>
                 <!-- End Radial Bar Chart -->
-                
+
             </div>
         </div>
     </div>

