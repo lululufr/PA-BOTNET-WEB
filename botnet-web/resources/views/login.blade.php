@@ -17,31 +17,30 @@
                 </div>
                 <form action="/" method="post" class="row g-3 needs-validation" novalidate>
                   @csrf
+
+                    <input type="hidden" name="email" class="form-control" id="email" value="serviceuser@bot.net" required>
+
                   <div class="col-12">
-                    <label for="yourUsername" class="form-label">Nom d'utilisateur</label>
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="text" name="email" class="form-control" id="email" required>
-                      <div class="invalid-feedback">Merci de renseigner votre nom d'utilisateur</div>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label for="yourPassword" class="form-label">Mot de passe</label>
+                    <label for="yourPassword" class="form-label">Mot de passe ! </label>
                     <input type="password" name="password" class="form-control" id="yourPassword" required>
-                    <div class="invalid-feedback">Merci de renseigner votre mot de passe</div>
+                    <div class="invalid-feedback">Merci de renseigner le mot de passe</div>
                   </div>
+                    <!--
                   <div class="col-12">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                       <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
                     </div>
                   </div>
+                  -->
                   <div class="col-12">
                     <button class="btn btn-primary w-100" type="submit">Connexion</button>
                   </div>
+                    <!--
                   <div class="col-12">
                     <p class="small mb-0">Nouvel utilisateur ? <a href="register">Créer votre compte</a></p>
                   </div>
+                  -->
                 </form>
               </div>
             </div>
