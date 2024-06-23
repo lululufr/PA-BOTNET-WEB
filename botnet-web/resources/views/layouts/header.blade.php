@@ -32,13 +32,7 @@
   <!-- Template CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Nov 17 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body>
@@ -141,12 +135,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ $username }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->username }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ $username }} {{ $name }}</h6>
+              <h6>{{ auth()->user()->username}} {{ auth()->user()->name}}</h6>
               <span>Admin</span>
             </li>
             <li>
@@ -208,6 +202,14 @@
                 <span>Utilisateurs</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="{{ url('quick_tools') }}">
+                <i class="bi bi-people"></i>
+                <span>Quick tool</span>
+            </a>
+        </li>
+
     </ul>
   </aside><!-- End Sidebar-->
 
