@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('botnet-on', [\App\Http\Controllers\BotnetController::class, 'start_botnet']);
     Route::post('botnet-off', [\App\Http\Controllers\BotnetController::class, 'stop_botnet']);
     Route::post('aide_botnet', [\App\Http\Controllers\BotnetController::class, 'aide_botnet']);
+    Route::post('botnet_update', [\App\Http\Controllers\BotnetController::class, 'botnet_update']);
 
 
 });

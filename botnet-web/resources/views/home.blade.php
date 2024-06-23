@@ -31,14 +31,22 @@
                         </tbody>
                     </table>
                 </div>
-        @elseif(session('output') !== null)
+        @elseif(session('output'))
 
                 <div class="alert alert-info">
                     {{ session('output') }}
                 </div>
+
+        @elseif(session('output') !== null)
+
+                <div class="alert alert-info">
+                    ERROR
+                </div>
             @endif
 
         @if(!$botnetRunning)
+            <div class="container row">
+
             <form method="POST" action="/botnet-on">
                 @csrf
                 <div class="row mb-3">
@@ -49,14 +57,21 @@
                       </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Allumer</button>
+
+                <button type="submit" class="btn btn-success col-2 m-1">Allumer</button>
             </form>
+
         @else
             <form method="POST" action="/botnet-off">
                 @csrf
-                <button type="submit" class="btn btn-danger">Éteindre</button>
+                <button type="submit" class="btn btn-danger col-2 m-1">Éteindre</button>
             </form>
         @endif
+        <form method="POST" action="/botnet_update">
+            @csrf
+            <button type="submit" class="btn btn-secondary col-2 m-1">Update client botnet</button>
+        </form>
+            </div>
     </div>
   </div>
 

