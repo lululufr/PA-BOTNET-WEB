@@ -49,4 +49,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('botnet_download', [\App\Http\Controllers\BotnetController::class, 'botnet_download']);
 
 
+
+
+    Route::get('quick_tools', [\App\Http\Controllers\ToolsController::class, 'index']);
+    Route::get('/phising/send', [\App\Http\Controllers\ToolsController::class, 'phising_send']);
+
+
 });

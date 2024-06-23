@@ -81,8 +81,6 @@ class HomeController extends Controller
 
 
         return view('home', [
-            'username' => $username,
-            'name' => $name,
             'months' => json_encode($months), // Convertir en format JSON pour le script du graphique
             'userRegistrationCounts' => json_encode($userRegistrationCounts),
             'networkCount' => $networkCount,
