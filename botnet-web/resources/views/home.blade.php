@@ -58,19 +58,25 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success col-2 m-1">Allumer</button>
+                <button type="submit" class="btn btn-success col-3 m-1">Allumer</button>
             </form>
 
         @else
             <form method="POST" action="/botnet-off">
                 @csrf
-                <button type="submit" class="btn btn-danger col-2 m-1">Éteindre</button>
+                <button type="submit" class="btn btn-danger col-3 m-1">Éteindre</button>
             </form>
         @endif
         <form method="POST" action="/botnet_update">
             @csrf
-            <button type="submit" class="btn btn-secondary col-2 m-1">Update client botnet</button>
+            <button type="submit" class="btn btn-warning col-3 m-1">Update botnet</button>
         </form>
+
+
+            <form method="POST" action="/botnet_download">
+                @csrf
+                <button type="submit" class="btn btn-secondary col-3 m-1">Download botnet</button>
+            </form>
             </div>
     </div>
   </div>

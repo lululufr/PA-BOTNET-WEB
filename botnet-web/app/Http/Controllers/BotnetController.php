@@ -162,7 +162,12 @@ class BotnetController extends Controller
     }
 
 
+    public function botnet_download()
+    {
+        $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
 
+        return response()->download($storagePath);
+    }
 
 
 }
