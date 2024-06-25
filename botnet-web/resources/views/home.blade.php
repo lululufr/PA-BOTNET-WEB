@@ -42,7 +42,7 @@
                 <div class="alert alert-info">
                     ERROR
                 </div>
-            @endif
+        @endif
 
         @if(!$botnetRunning)
             <div class="container row">

