@@ -205,6 +205,25 @@ class BotnetController extends Controller
         return $output;
     }
     
+    public function get_scan($uid){
+        $recentScan = \App\Models\VictimAttacks::where('type', 'scan')
+                            ->where('state', 'done')
+                            ->latest('created_at')
+                            ->first();
 
+        dd($recentScan);
+    
+        if ($recentScan) {
+            return response()->json([
+                'success' => true,
+                'data' => $recentScan
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No recent scans found'
+            ]);
+        }
+    }
 
 }

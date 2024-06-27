@@ -33,12 +33,7 @@
                           J'ai un compte spécifique
                       </button>
                   </div>
-
                 </form>
-
-
-
-
               </div>
             </div>
           </div>

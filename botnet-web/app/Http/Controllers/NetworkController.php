@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Network;
 use App\Models\Victims;
+use App\Models\VictimAttacks;
 use App\Models\VictimGroup;
 use App\Models\GroupAttacks;
 
@@ -72,12 +73,19 @@ class NetworkController extends Controller
                             ->where('victim_groups.group_id', $id)
                             ->select('victims.*') // Sélectionner toutes les colonnes de la table victims
                             ->get();
+
+        $scan = VictimAttacks::where('type', 'scan')
+                            ->where('state', 'done')
+                            ->latest('created_at')
+                            ->first();
+
     
         return view('network.show', [
             'group' => $group, 
             'username' => $username, 
             'name' => $name, 
-            'victims' => $victims
+            'victims' => $victims,
+            'scan' => $scan
         ]);
     }
 

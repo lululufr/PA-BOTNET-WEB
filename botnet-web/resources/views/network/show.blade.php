@@ -234,6 +234,15 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Scan</h5>
+                                    <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                        <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                                            <ul class="list-group">
+                                                @foreach (explode(' / ', $scan->result) as $item)
+                                                    <li class="list-group-item">{{ $item }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
