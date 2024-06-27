@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
     Route::post('network/{id}', [\App\Http\Controllers\NetworkController::class, 'destroy'])->name('network.destroy');
     Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
+    Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scanport'])->name('network.scanport');
     Route::get('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
     Route::post('screenshot', [\App\Http\Controllers\NetworkController::class, 'screenshot'])->name('network.screenshot');
     Route::post('picture', [\App\Http\Controllers\NetworkController::class, 'picture'])->name('network.picture');

