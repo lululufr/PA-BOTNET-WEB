@@ -36,38 +36,53 @@ class HomeController extends Controller
         exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
         //exec('/home/quentin/Documents/Projet_Ann_3ème/vitual_env/bin/python /home/quentin/Documents/Projet_Ann_3ème/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
 
-        // dd($output);
-        // Initialiser un tableau pour stocker les attaques
-        $attacks = [];
-
-        foreach ($output as $line) {
-            $line = trim($line);
-
-            preg_match("/\((\d+), \d+, '(\w+)', '(\w+)', '(\{.*?\})', (?:'([^']*)'|None), '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'\)/", $line, $matches);
-
-            if ($matches) {
-                $attacks[] = [
-                    'id' => $matches[1],
-                    'type' => $matches[2],
-                    'status' => $matches[3],
-                    'results' => $matches[5],
-                    'timestamp_start' => $matches[6],
-                    'timestamp_end' => $matches[7]
-                ];
-            }
-        }
-        // dd($attacks);
-
 
         $botnetRunning = (new BotnetController)->botnet_is_running();
+
+        $osCounts = DB::table('victims')
+              ->select('os', DB::raw('count(*) as total'))
+              ->groupBy('os')
+              ->get();
+
+        $osLabels = [];
+        $osData = [];
+
+        foreach ($osCounts as $os) {
+            $osLabels[] = $os->os; // Assume 'os' is the field that holds the OS type
+            $osData[] = $os->total;
+        }
+
+        $victimsCounts = DB::table('victims')
+                   ->select(DB::raw('COUNT(*) as count, MONTH(created_at) as month'))
+                   ->whereYear('created_at', date('Y')) // Filtrer pour l'année courante, ou adapter selon besoin
+                   ->groupBy(DB::raw('MONTH(created_at)'))
+                   ->orderBy('month')
+                   ->get();
+
+        $victimMonths = [];
+        $victimCounts = [];
+
+        foreach ($victimsCounts as $count) {
+            $victimMonths[] = \DateTime::createFromFormat('!m', $count->month)->format('F');
+            $victimCounts[] = $count->count;
+        }
+
+        $attacks = DB::table('victim_attacks')  // Assurez-vous que le nom de la table est correct
+             ->select('id', 'type', 'state as status', 'result', 'created_at as date_de_lancement')
+             ->orderBy('created_at', 'desc')
+             ->get();
 
 
         return view('home', [
             'months' => json_encode($months), // Convertir en format JSON pour le script du graphique
             'userRegistrationCounts' => json_encode($userRegistrationCounts),
             'networkCount' => $networkCount,
-            'attacks' => $attacks,
-            'botnetRunning' => $botnetRunning //variable qui détermine si le botnet est exec
+            'botnetRunning' => $botnetRunning,
+            'osLabels' => json_encode($osLabels),
+            'osData' => json_encode($osData),
+            'victimMonths' => json_encode($victimMonths),
+            'victimCounts' => json_encode($victimCounts),
+            'attacks' => $attacks
         ]);
     }
 
