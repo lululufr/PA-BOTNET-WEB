@@ -29,25 +29,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($victims as $victim)
-                        <tr>
-                            <th scope="row">{{ $victim->id }}</th>
-                            <td>{{ $victim->ip }}</td>
-                            <td>{{ $victim->created_at }}</td>
-                            <td>
-                                <form action="{{ route('victims.update', $victim->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                      <select class="form-select" name="group" id="validationDefault04" required>
-                                          @foreach ($groups as $group)
-                                              <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                          @endforeach
-                                      </select>                                  
-                                    <button type="submit" class="btn btn-primary">Attribuer</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                  @foreach ($victims as $victim)
+                    <tr>
+                        <th scope="row">{{ $victim->id }}</th>
+                        <td>{{ $victim->ip }}</td>
+                        <td>{{ $victim->created_at }}</td>
+                        <td>
+                            <form action="{{ route('victims.update', $victim->id) }}" method="POST" class="d-flex align-items-center">
+                                @csrf
+                                @method('PUT')
+                                  <div class="col-md-3">
+                                    <select class="form-select" name="group" id="validationDefault04" required>
+                                        @foreach ($groups as $group)
+                                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                        @endforeach
+                                    </select> 
+                                  </div>                                
+                                <button type="submit" class="btn btn-primary">Attribuer</button>
+                            </form>
+                        </td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
               <!-- End Default Table Example -->
