@@ -5,81 +5,66 @@
 @section("content")
 
 
-  <div class="card">
+<div class="card">
     <div class="card-body">
         <h5 class="card-title">Serveur Python</h5>
         <!-- Affichage des messages d'erreur ou de succès -->
-
-            @if(is_array(session('output')) && count(session('output')) > 0)
-                <div class="alert alert-info">
-                    <table class="table">
-                        <thead>
+        @if(is_array(session('output')) && count(session('output')) > 0)
+            <div class="alert alert-info">
+                <table class="table">
+                    <thead>
                         <tr>
                             <th scope="col">Argument</th>
                             <th scope="col">Description</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (session('output') as $flag => $description)
-                                <tr>
-
-                                    <td><strong>{{ $flag }} </strong> </td>
-                                    <td>{{ $description }}</td>
-
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-        @elseif(session('output'))
-
-                <div class="alert alert-info">
-                    {{ session('output') }}
-                </div>
-
-        @elseif(session('output') !== null)
-
-                <div class="alert alert-info">
-                    ERROR
-                </div>
-        @endif
-
-        @if(!$botnetRunning)
-            <div class="container row">
-
-            <form method="POST" action="/botnet-on">
-                @csrf
-                <div class="row mb-3">
-                    <div class="row mb-3">
-                      <label for="inputText" class="col-sm-3 col-form-label">Port d'écoute (1023 - 65535)</label>
-                      <div class="col-sm-2">
-                        <input type="number" class="form-control" name="port" required min="1023" max="65535">
-                      </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success col-3 m-1">Allumer</button>
-            </form>
-
-        @else
-            <form method="POST" action="/botnet-off">
-                @csrf
-                <button type="submit" class="btn btn-danger col-3 m-1">Éteindre</button>
-            </form>
-        @endif
-        <form method="POST" action="/botnet_update">
-            @csrf
-            <button type="submit" class="btn btn-warning col-3 m-1">Update botnet</button>
-        </form>
-
-
-            <form method="POST" action="/botnet_download">
-                @csrf
-                <button type="submit" class="btn btn-secondary col-3 m-1">Download botnet</button>
-            </form>
+                    </thead>
+                    <tbody>
+                        @foreach(session('output') as $flag => $description)
+                            <tr>
+                                <td><strong>{{ $flag }}</strong></td>
+                                <td>{{ $description }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        @elseif(session('output'))
+            <div class="alert alert-info">
+                {{ session('output') }}
+            </div>
+        @elseif(session('output') !== null)
+            <div class="alert alert-info">
+                ERROR
+            </div>
+        @endif
+
+        <!-- Contrôles du botnet -->
+        <div class="d-flex align-items-center justify-content-start">
+            @if(!$botnetRunning)
+                <form method="POST" action="/botnet-on" class="d-flex align-items-center">
+                    @csrf
+                    <label for="port" class="form-label pe-2">Port d'écoute (1023 - 65535)</label>
+                    <input type="number" id="port" class="form-control me-2" name="port" required min="1023" max="65535" style="width: 150px;">
+                    <button type="submit" class="btn btn-success me-2">Allumer</button>
+                </form>
+            @else
+                <form method="POST" action="/botnet-off" class="me-2">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Éteindre</button>
+                </form>
+            @endif
+            <form method="POST" action="/botnet_update" class="me-2">
+                @csrf
+                <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+            <form method="POST" action="/botnet_download" class="me-2">
+                @csrf
+                <button type="submit" class="btn btn-secondary">Download</button>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
+
 
   <form method="POST" action="/aide_botnet">
     @csrf

