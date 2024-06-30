@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('state');
             $table->string('text')->nullable();
+            $table->string('result')->nullable();
             // $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });

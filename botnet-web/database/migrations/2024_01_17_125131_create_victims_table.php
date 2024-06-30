@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('ip');
             $table->string('sym_key')->nullable();
             $table->string('pub_key')->nullable();
+            $table->string('os');
             $table->boolean('stealth');
             $table->boolean('multi_thread');
             $table->boolean('updated')->default(false);
