@@ -32,8 +32,10 @@ class HomeController extends Controller
         // Récupérer le nombre de groupes créés
         $networkCount = Network::count();
 
+        $path = env('PATH_PYTHON_EXECUTABLE');
+
         // Exécute la commande --showall --target victim_attacks
-        exec('/home/debian/PA-BOTNET-PYSRV/venv/bin/python /home/debian/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
+        exec($path.'PA-BOTNET-PYSRV/venv/bin/python '.$path.'PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
         //exec('/home/quentin/Documents/Projet_Ann_3ème/vitual_env/bin/python /home/quentin/Documents/Projet_Ann_3ème/PA-BOTNET-PYSRV/main.py --showall --target victim_attacks', $output, $return);
 
 
