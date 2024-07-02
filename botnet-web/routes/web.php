@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('quick_tools', [\App\Http\Controllers\ToolsController::class, 'index']);
-    Route::get('/phising/send', [\App\Http\Controllers\ToolsController::class, 'phising_send']);
+    Route::post('/phising/send', [\App\Http\Controllers\ToolsController::class, 'phising_send']);
 
 
 });

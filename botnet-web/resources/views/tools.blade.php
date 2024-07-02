@@ -7,9 +7,25 @@
 
 <div class="container-fluid">
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalphishing">
-        Send direct phishing email
-    </button>
+    <div class="card">
+        <h5 class="card-header">Phishing</h5>
+        <div class="card-body">
+            <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#modalphishing">
+                Envoyer un mail de phishing
+            </button>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <h5 class="card-header">EXE infector</h5>
+        <div class="card-body">
+            <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#modalphishing">
+                download zip BOMB
+            </button>
+        </div>
+    </div>
+
 
 
 
@@ -37,7 +53,7 @@
             @csrf
             <div class="mb-3">
                 A qui envoyer ->
-                <input type="email" id="receiver" name="receiver">
+                <input type="email" id="email" name="email">
 
             </div>
 
