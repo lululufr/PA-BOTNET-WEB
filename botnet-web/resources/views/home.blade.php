@@ -303,4 +303,12 @@
 
 
     <div id="terminal"></div>
+
+    <!--test de la console-->
+    <form action="/test/whoami" method="POST">
+        @csrf
+    <button type="submit" id="btn">Try it</button>
+    </form>
+
+
 @endsection

@@ -64,4 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/phising/send', [\App\Http\Controllers\ToolsController::class, 'phising_send']);
 
 
+    Route::post('/test/whoami', [\App\Http\Controllers\HomeController::class, 'test_whoami']);
+
+
 });
