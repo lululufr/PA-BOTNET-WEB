@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained('groups');
             $table->string('type');
             $table->string('state');
+            $table->string('executed_rate');
             $table->string('text')->nullable();
-            // $table->timestamp('created_at')->useCurrent();
+            $table->string('result')->nullable();
             $table->timestamps();
         });
     }

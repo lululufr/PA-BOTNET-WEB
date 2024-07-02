@@ -18,10 +18,7 @@ return new class extends Migration
             $table->string('sym_key')->nullable();
             $table->string('pub_key')->nullable();
             $table->string('os');
-            $table->boolean('stealth');
-            $table->boolean('multi_thread');
-            $table->boolean('updated')->default(false);
-            // $table->timestamp('created_at')->useCurrent();
+            $table->string('status');
             $table->timestamps();
         });
     }
