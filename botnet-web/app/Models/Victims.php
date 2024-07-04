@@ -13,5 +13,4 @@ class Victims extends Model
     {
         return $this->hasMany(VictimGroup::class, 'victim_id', 'id');
     }
-
 }
