@@ -19,12 +19,14 @@ class VictimsController extends Controller
         $username = auth()->user()->firtsname;
         $name = auth()->user()->lastname;
     
-        $victims = Victims::doesntHave('victimGroups')->get();
+        $unsigned_victims = Victims::doesntHave('victimGroups')->get();
+
+        $all_victims = Victims::with('victimGroups')->get();
     
         // Récupérer tous les groupes
         $groups = Network::all();
     
-        return view('victims', ['username' => $username, 'name' => $name, 'victims' => $victims, 'groups' => $groups]);
+        return view('victims', ['username' => $username, 'name' => $name, 'unsigned_victims' => $unsigned_victims, 'all_victims' => $all_victims, 'groups' => $groups]);
     }
 
     /**

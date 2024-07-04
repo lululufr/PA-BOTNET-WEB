@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class VictimGroup extends Model
 {
     use HasFactory;
+
+    public function network()
+    {
+        return $this->belongsTo(Network::class, 'group_id', 'id');
+    }
 }
