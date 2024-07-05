@@ -91,7 +91,7 @@ class BotnetController extends Controller
 
         $result = [];
 
-        $fullpath = $path . 'PA-BOTNET-CLIENT';
+        $fullpath = $path . 'PA-BOTNET-CLIENT-v2';
 
         $command = "cd $fullpath && git pull";
         exec($command, $output, $return);
@@ -115,7 +115,7 @@ class BotnetController extends Controller
             mkdir(storage_path('BOTNET-SHARE'), 0777, true);
         }
 
-        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT';
+        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT-v2';
         $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
 
 
