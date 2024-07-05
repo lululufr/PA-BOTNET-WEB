@@ -66,7 +66,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">DDOS</h5>
                                     <form method="POST" action="{{ route('network.ddos') }}">
-                                        @csrf  <!-- N'oubliez pas le jeton CSRF pour la sécurité -->
+                                        @csrf
                                         <div class="row mb-3">
                                             <label class="col-sm-2 col-form-label">ID Groupe</label>
                                             <div class="col-sm-10">
@@ -86,6 +86,12 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
+                                            <label class="col-sm-2 col-form-label">Port</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control" name="port">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
                                             <label class="col-sm-2 col-form-label">Temps (en secondes)</label>
                                             <div class="col-sm-10">
                                                 <input type="number" class="form-control" name="duration">
@@ -95,7 +101,6 @@
                                     </form>
                                     <div class="credits">
                                         <br>
-                                        Vous êtes responsable des conséquences que cet outil peut avoir sur les victimes.
                                     </div>
                                 </div>
                             </div>
