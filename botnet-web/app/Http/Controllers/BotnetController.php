@@ -115,7 +115,7 @@ class BotnetController extends Controller
             mkdir(storage_path('BOTNET-SHARE'), 0777, true);
         }
 
-        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT-v2';
+        $compiledFilePath = $fullpath . '/target/release/PA-BOTNET-CLIENT-v2';
         $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
 
 
