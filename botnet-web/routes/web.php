@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/test/whoami', [\App\Http\Controllers\HomeController::class, 'test_whoami']);
 
 
-    Route::post('/photos/dl/{id}', [\App\Http\Controllers\VictimsController::class, 'picture_dl']);
+    Route::post('/photos/dl', [\App\Http\Controllers\VictimsController::class, 'picture_dl']);
 
 
 });

