@@ -201,7 +201,13 @@
                                                         <td>{{ $picture->created_at->format('H:i') }}</td>
                                                         <td>{{ $picture->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                            <form method="POST" action="/photos/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="picture_id" value="{{ $picture->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-success" href="/photos/dl/{{$picture->id}}">Télécharger</button>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>

